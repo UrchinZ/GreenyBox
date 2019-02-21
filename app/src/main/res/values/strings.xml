@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">GreenyBox</string>
+    <string name="add_btn">+</string>
+    <string name="setting_btn">Setting</string>
+</resources>
