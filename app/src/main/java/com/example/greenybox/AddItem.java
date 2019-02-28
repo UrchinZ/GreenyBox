@@ -51,10 +51,11 @@ public class AddItem extends AppCompatActivity {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 boolean handled = false;
-                if (actionId == EditorInfo.IME_ACTION_GO) {
+                if (actionId == EditorInfo.IME_ACTION_DONE) {
                     //Perform your Actions here.
                     InputMethodManager imm = (InputMethodManager) v.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
                     imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
+                    itemName.clearFocus();
                     handled = true;
                 }
                 return handled;
@@ -82,10 +83,15 @@ public class AddItem extends AppCompatActivity {
                     return;
                 }
 
+                String purchaseText = (String)pDate.getText();
+                //if purchase date is empty, do not respond
+                if (purchaseText.length() == 0){
+                    return;
+                }
+
                 int days = Integer.parseInt(s.toString());
                 System.out.println("converting to int: "+days);
 
-                String purchaseText = (String)pDate.getText();
                 String purchase = purchaseText.substring(purchaseText.length()-10);
                 SimpleDateFormat myFormat = new SimpleDateFormat("MM/dd/yyyy");
                 try {
@@ -134,6 +140,11 @@ public class AddItem extends AppCompatActivity {
                 }
                 date = "Purchase Date: "+ date;
                 pDate.setText(date);
+                if (eDate.getText().length()>0){
+                    int days = calDayDifference();
+                    String dayStr = Integer.toString(days);
+                    pDays.setText(dayStr);
+                }
             }
         };
 
