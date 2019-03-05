@@ -27,12 +27,12 @@ public class Item {
 
     public void setBuyDate(int year, int month, int day){
         /*somehow magically parse year, month, day into a calendar object*/
-        pass;
+
     }
 
     public void setExpDate(int year, int month, int day){
         /*somehow magically parse year, month, day into a calendar object*/
-        pass;
+
     }
 
     public void setStoreDay(int day){
@@ -63,8 +63,7 @@ public class Item {
     public void storeToInternal(){
 
     }
-    
-     */
+
     /* private helper function*/
     private int dayDifference(){
         /*calculate difference between 2 dates*/
