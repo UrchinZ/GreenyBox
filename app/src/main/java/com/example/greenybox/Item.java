@@ -56,7 +56,16 @@ public class Item {
         return storeDay;
     }
 
-    /*helper function*/
+    /* public helper functions*/
+    /**
+     *Store information to internal storage
+     **/
+    public void storeToInternal(){
+
+    }
+    
+     */
+    /* private helper function*/
     private int dayDifference(){
         /*calculate difference between 2 dates*/
         return 0;
