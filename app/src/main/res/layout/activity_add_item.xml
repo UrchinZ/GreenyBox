@@ -73,7 +73,7 @@
         android:gravity="center"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+        app:layout_constraintTop_toBottomOf="@+id/ivPicture" />
 
     <EditText
         android:id="@+id/preserveDay"
@@ -94,7 +94,7 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/ivPicture"
         android:layout_width="170dp"
         android:layout_height="161dp"
         android:layout_marginStart="16dp"
