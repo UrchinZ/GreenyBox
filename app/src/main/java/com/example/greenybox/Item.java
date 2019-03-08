@@ -8,6 +8,7 @@ public class Item {
     Calendar buyDate;
     Calendar expDate;
     int storeDay;
+    String imgPath;
 
     //default constructor
     public Item(){
@@ -16,8 +17,9 @@ public class Item {
     }
 
     //constructor from storage string
-    public Item(String s){
-
+    public Item(String n, String i){
+        this.name = n;
+        this.imgPath = i;
     }
 
     //modifier
