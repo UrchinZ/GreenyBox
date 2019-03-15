@@ -34,32 +34,42 @@ public class Item {
         buyDate = buy;
         expDate=exp;
     }
-    
-    //Helper functions
-    //Get reminder date
-    public LocalDate remDate(){return expDate.minusDays(Reminder);}
-    // Observers
-    // Get number of days until reminder
-    public int getReminder() {
-        return Reminder;
-    }
-    //Get LocalDate of purchase
-    /*public LocalDate getBuyDate() {
-        return BuyDate;
-    }
-    //Get LocalDate of expiration
-    public LocalDate getexpDate() {
-        return expDate;
-    }
 
-    //Get name as string
+    //Helper functions: observers
+    /**
+     * access item name
+     * @return string item name
+     */
     public String getName() {
         return name;
     }
-    //Get amount of item
+
+    /**
+     * access item count
+     * @return integer item count
+     */
     public int getCount(){
         return count;
     }
+
+    /**
+     * access localdate buy date
+     * @return localdate buy date
+     */
+    public LocalDate getBuyDate() {
+        return buyDate;
+    }
+
+
+    /**
+     * access localdate expiration date
+     * @return localdate expiration date
+     */
+    public LocalDate getExpDate() {
+        return expDate;
+    }
+
+
     //Notify
 
     //Modifier
