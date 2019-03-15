@@ -2,25 +2,39 @@ package com.example.greenybox;
 
 import org.joda.time.LocalDate;
 
-import java.util.Calendar;
-
-//https://stackoverflow.com/questions/40124189/android-difference-between-two-dates
 public class Item {
     //Data
-    private LocalDate expDate;
-    private LocalDate BuyDate;
-    private int Reminder;
     private String name;
     private int count;
+    private LocalDate buyDate;
+    private LocalDate expDate;
+
     //Constructor
-    //Takes in 5 values for the data and assigns them.
-    public Item(String namu, LocalDate EXP, LocalDate PerDate, int Rem, int coun){
-        name=namu; expDate=EXP; BuyDate=PerDate; Reminder=Rem; count=coun;
+
+    /**
+     * empty constructor
+     */
+    public Item(){
+        name = "";
+        count = 0;
+        buyDate = null;
+        expDate = null;
     }
-    //A constructor for if you have an amount of days until experation.
-    public Item(String Nname, int EXPlus, LocalDate PerDate, int Rem, int coun){
-        name=Nname; expDate=PerDate.plusDays(EXPlus); BuyDate=PerDate; Reminder=Rem; count=coun;
+
+    /**
+     * Constructor takes in all field
+     * @param n string of name
+     * @param c int count
+     * @param buy localdate buy date
+     * @param exp localdate expiration date
+     */
+    public Item(String n, int c, LocalDate buy, LocalDate exp){
+        name = n;
+        count = c;
+        buyDate = buy;
+        expDate=exp;
     }
+    
     //Helper functions
     //Get reminder date
     public LocalDate remDate(){return expDate.minusDays(Reminder);}
