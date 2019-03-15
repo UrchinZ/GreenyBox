@@ -4,39 +4,131 @@ import org.joda.time.LocalDate;
 
 public class Item {
     //Data
-    private LocalDate expDate;
-    private LocalDate buyDate;
-    private int reminder;
     private String name;
     private int count;
-    //Constructor
-    //Takes in 5 values for the data and assigns them.
-    public Item(String namu, LocalDate EXP, LocalDate PerDate, int rem, int coun){
-        name=namu; expDate=EXP; buyDate =PerDate; reminder =rem; count=coun;
-    }
-    //A constructor for if you have an amount of days until experation.
-    public Item(String newName, int EXPlus, LocalDate perDate, int rem, int coun){
-        name=newName; expDate=perDate.plusDays(EXPlus); buyDate =perDate; reminder =rem; count=coun;
-    }
-    //Helper functions
-    //Returns: reminder date
-    public LocalDate remDate(){return expDate.minusDays(reminder);}
-    // Observers
-    // Returns: number of days from reminder to experation
-    public int getReminder() {return reminder;}
-    //Returns: Localdate Purchase date
-    public LocalDate getBuyDate() {return buyDate;}
-    //Returns: Localdate of expiration
-    public LocalDate getExpDate() {return expDate;}
-    //Returns: name as string
-    public String getName() {return name;}
-    //Returns: amount of item
-    public int getCount(){return count;}
-    //Notify
+    private LocalDate buyDate;
+    private LocalDate expDate;
 
-    //Modifier
-    //Works just like constructor, just replaces everything.
-    public void rewite(LocalDate exp, String N, LocalDate perDate, int rem, int c) {
-        name=N; expDate=exp; buyDate =perDate; reminder =rem; count=c;
+    //Constructor
+
+    /**
+     * empty constructor
+     */
+    public Item(){
+        name = "";
+        count = 0;
+        buyDate = null;
+        expDate = null;
     }
+
+    /**
+     * Constructor takes in all field
+     * @param n string of name
+     * @param c int count
+     * @param buy localdate buy date
+     * @param exp localdate expiration date
+     */
+    public Item(String n, int c, LocalDate buy, LocalDate exp){
+        name = n;
+        count = c;
+        buyDate = buy;
+        expDate=exp;
+    }
+
+    //Helper functions: observers
+    /**
+     * access item name
+     * @return string item name
+     */
+    public String getName() {
+        return name;
+    }
+
+    /**
+     * access item count
+     * @return integer item count
+     */
+    public int getCount(){
+        return count;
+    }
+
+    /**
+     * access localdate buy date
+     * @return localdate buy date
+     */
+    public LocalDate getBuyDate() {
+        return buyDate;
+    }
+
+
+    /**
+     * access localdate expiration date
+     * @return localdate expiration date
+     */
+    public LocalDate getExpDate() {
+        return expDate;
+    }
+
+
+    //Modifiers
+
+    /**
+     * set name
+     * @param n string of name
+     */
+    public void setName(String n)
+    {
+        name = n;
+    }
+
+    /**
+     * set count
+     * @param c int count
+     */
+    public void setCount(int c){
+        count = c;
+    }
+
+    /**
+     * One of the modifier for buydate
+     * @param buy local date
+     */
+    public void setBuyDate(LocalDate buy){
+        buyDate = buy;
+    }
+
+    /**
+     * One of the modifier for buydate
+     * @param year int
+     * @param month int
+     * @param day int
+     */
+    public void setBuyDate(int year, int month, int day) {
+
+    }
+
+    /**
+     * one of the modifers for expiration date
+     * @param exp expiration local date
+     */
+    public void setExpDate(LocalDate exp) {
+        expDate = exp;
+    }
+
+    /**
+     * one of the modifiers for expiration date
+     * @param year int
+     * @param month int
+     * @param day int
+     */
+    public void setExpDate(int year, int month, int day){
+
+    }
+
+    public void rewite(LocalDate EXP, String N, LocalDate perDate, int c) {
+        name=N; expDate=EXP; buyDate=perDate; count=c;
+    }
+
+
 }
+//Test
