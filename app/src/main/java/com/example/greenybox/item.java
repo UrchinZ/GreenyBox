@@ -156,7 +156,6 @@ public class Item {
         setBuyDate(buyYear,buyMonth,buyDay);
         setExpDate(expYear,expMonth,expDay);
     }
-
-
+    
 }
 //Test
