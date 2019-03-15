@@ -7,6 +7,33 @@
     tools:context=".AddItem">
 
 
+    <TextView
+        android:id="@+id/unitText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:text="Unit(s) of"
+        android:textSize="20dp"
+        app:layout_constraintBaseline_toBaselineOf="@+id/unit"
+        app:layout_constraintStart_toEndOf="@+id/unit" />
+
+    <EditText
+        android:id="@+id/unit"
+        android:layout_width="118dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="32dp"
+        android:gravity="end"
+        android:hint="Change # of"
+        android:inputType="numberDecimal"
+        android:maxLength="3"
+        android:textAlignment="textEnd"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ivPicture" />
+
     <Button
         android:id="@+id/addDone"
         android:layout_width="80dp"
@@ -26,11 +53,11 @@
 
     <TextView
         android:id="@+id/expirationDate"
-        android:layout_width="wrap_content"
-        android:layout_height="27dp"
+        android:layout_width="192dp"
+        android:layout_height="31dp"
         android:layout_marginStart="16dp"
         android:layout_marginLeft="16dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="32dp"
         android:layout_marginEnd="16dp"
         android:layout_marginRight="16dp"
         android:hint="Pick Expiration Date"
@@ -41,57 +68,50 @@
 
     <TextView
         android:id="@+id/purchaseDate"
-        android:layout_width="wrap_content"
-        android:layout_height="27dp"
+        android:layout_width="189dp"
+        android:layout_height="30dp"
         android:layout_marginStart="16dp"
         android:layout_marginLeft="16dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="32dp"
         android:layout_marginEnd="16dp"
         android:layout_marginRight="16dp"
         android:hint="Pick Purchase Date"
         android:textSize="20dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.485"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/itemName" />
+        app:layout_constraintTop_toBottomOf="@+id/unit" />
 
     <EditText
         android:id="@+id/itemName"
-        android:maxLength="100"
-        android:layout_width="268dp"
-        android:layout_height="40dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="16dp"
+        android:layout_width="175dp"
+        android:layout_height="39dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
-        android:hint="Item Name"
-        android:singleLine="true"
-        android:imeOptions="actionDone"
-        android:textAlignment="center"
-        android:inputType="text"
         android:gravity="center"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ivPicture" />
+        android:hint="Item Name"
+        android:imeOptions="actionDone"
+        android:inputType="text"
+        android:maxLength="100"
+        android:singleLine="true"
+        android:textAlignment="center"
+        app:layout_constraintBaseline_toBaselineOf="@+id/unitText"
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <EditText
         android:id="@+id/preserveDay"
-        android:layout_width="118dp"
+        android:layout_width="wrap_content"
         android:layout_height="48dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginBottom="32dp"
+        android:layout_marginStart="64dp"
+        android:layout_marginLeft="64dp"
+        android:layout_marginTop="30dp"
+        android:gravity="end"
         android:hint="Change # of"
         android:inputType="numberDecimal"
         android:maxLength="3"
         android:textAlignment="textEnd"
-        android:gravity="end"
         android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@+id/addDone"
-        app:layout_constraintEnd_toStartOf="@+id/daysPromptText"
-        app:layout_constraintHorizontal_bias="0.415"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/expirationDate" />
 
     <ImageView
         android:id="@+id/ivPicture"
@@ -99,7 +119,7 @@
         android:layout_height="161dp"
         android:layout_marginStart="16dp"
         android:layout_marginLeft="16dp"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="32dp"
         android:layout_marginEnd="16dp"
         android:layout_marginRight="16dp"
         android:background="@android:color/holo_green_dark"
@@ -113,12 +133,12 @@
         android:id="@+id/daysPromptText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:layout_marginRight="16dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
         android:text="Days to Preserve"
         android:textSize="20dp"
         app:layout_constraintBaseline_toBaselineOf="@+id/preserveDay"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintStart_toEndOf="@+id/preserveDay" />
 
     <TextView
         android:id="@+id/orText"
@@ -133,7 +153,9 @@
         android:text="or"
         app:layout_constraintBottom_toTopOf="@+id/preserveDay"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.494"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/expirationDate" />
+        app:layout_constraintTop_toBottomOf="@+id/expirationDate"
+        app:layout_constraintVertical_bias="0.741" />
 
 </android.support.constraint.ConstraintLayout>
