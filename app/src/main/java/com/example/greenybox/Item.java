@@ -125,9 +125,38 @@ public class Item {
 
     }
 
-    public void rewite(LocalDate EXP, String N, LocalDate perDate, int Rem, int c) {
-        name=N; expDate=EXP; BuyDate=perDate; Reminder=Rem; count=c;
+    /**
+     * bulk rewrite fields
+     * @param n string name
+     * @param c int count
+     * @param buy local date buy date
+     * @param exp local date expiration date
+     */
+    public void rewite(String n, int c, LocalDate buy, LocalDate exp) {
+        setName(n);
+        setCount(c);
+        setBuyDate(buy);
+        setExpDate(exp);
+    }
+
+    /**
+     * builk rewrite fields
+     * @param n string name
+     * @param c string count
+     * @param buyYear int buy year
+     * @param buyMonth int buy month
+     * @param buyDay int buy day
+     * @param expYear int expiration year
+     * @param expMonth int expiration month
+     * @param expDay int expiration day
+     */
+    public void rewrite(String n, int c, int buyYear, int buyMonth, int buyDay, int expYear, int expMonth, int expDay){
+        setName(n);
+        setCount(c);
+        setBuyDate(buyYear,buyMonth,buyDay);
+        setExpDate(expYear,expMonth,expDay);
     }
 
 
 }
+//Test
