@@ -104,7 +104,7 @@ public class Item {
      * @param day int
      */
     public void setBuyDate(int year, int month, int day) {
-
+        buyDate=new LocalDate(year,month,day);
     }
 
     /**
@@ -122,7 +122,7 @@ public class Item {
      * @param day int
      */
     public void setExpDate(int year, int month, int day){
-
+        expDate= new LocalDate(year, month, day);
     }
 
     /**
