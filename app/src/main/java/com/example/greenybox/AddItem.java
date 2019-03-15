@@ -235,6 +235,9 @@ public class AddItem extends AppCompatActivity {
      * @return Difference in days between purchase date and expiration date
      * @bug: March 10th 2019 is a weird date
      */
+    /*
+
+     */
     private int calDayDifference(){
         String expirationText = (String)eDate.getText();
         String expiration = expirationText.substring(expirationText.length()-10);

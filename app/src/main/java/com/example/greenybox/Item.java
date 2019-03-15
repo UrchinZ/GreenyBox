@@ -1,79 +1,132 @@
 package com.example.greenybox;
 
-import java.util.Calendar;
+import org.joda.time.LocalDate;
 
-//https://stackoverflow.com/questions/40124189/android-difference-between-two-dates
 public class Item {
-    String name;
-    Calendar buyDate;
-    Calendar expDate;
-    int storeDay;
-    String imgPath;
+    //Data
+    private String name;
+    private int count;
+    private LocalDate buyDate;
+    private LocalDate expDate;
 
-    //default constructor
+    //Constructor
+
+    /**
+     * empty constructor
+     */
     public Item(){
         name = "";
-        storeDay = -1;
+        count = 0;
+        buyDate = null;
+        expDate = null;
     }
 
-    //constructor from storage string
-    public Item(String n, String i){
-        this.name = n;
-        this.imgPath = i;
-    }
-
-    //modifier
-    public void setName(String n){
+    /**
+     * Constructor takes in all field
+     * @param n string of name
+     * @param c int count
+     * @param buy localdate buy date
+     * @param exp localdate expiration date
+     */
+    public Item(String n, int c, LocalDate buy, LocalDate exp){
         name = n;
+        count = c;
+        buyDate = buy;
+        expDate=exp;
     }
 
-    public void setBuyDate(int year, int month, int day){
-        /*somehow magically parse year, month, day into a calendar object*/
-
-    }
-
-    public void setExpDate(int year, int month, int day){
-        /*somehow magically parse year, month, day into a calendar object*/
-
-    }
-
-    public void setStoreDay(int day){
-        storeDay = day;
-    }
-
-    //accessor
-    public String getName(){
+    //Helper functions: observers
+    /**
+     * access item name
+     * @return string item name
+     */
+    public String getName() {
         return name;
     }
 
-    public  Calendar getBuyDate(){
+    /**
+     * access item count
+     * @return integer item count
+     */
+    public int getCount(){
+        return count;
+    }
+
+    /**
+     * access localdate buy date
+     * @return localdate buy date
+     */
+    public LocalDate getBuyDate() {
         return buyDate;
     }
 
-    public Calendar getExpDate(){
+
+    /**
+     * access localdate expiration date
+     * @return localdate expiration date
+     */
+    public LocalDate getExpDate() {
         return expDate;
     }
 
-    public int getStoreDay(){
-        return storeDay;
-    }
 
-    /* public helper functions*/
+    //Modifiers
+
     /**
-     *Store information to internal storage
-     **/
-    public void storeToInternal(){
+     * set name
+     * @param n string of name
+     */
+    public void setName(String n)
+    {
+        name = n;
+    }
+
+    /**
+     * set count
+     * @param c int count
+     */
+    public void setCount(int c){
+        count = c;
+    }
+
+    /**
+     * One of the modifier for buydate
+     * @param buy local date
+     */
+    public void setBuyDate(LocalDate buy){
+        buyDate = buy;
+    }
+
+    /**
+     * One of the modifier for buydate
+     * @param year int
+     * @param month int
+     * @param day int
+     */
+    public void setBuyDate(int year, int month, int day) {
 
     }
 
-    /* private helper function*/
-    private int dayDifference(){
-        /*calculate difference between 2 dates*/
-        return 0;
+    /**
+     * one of the modifers for expiration date
+     * @param exp expiration local date
+     */
+    public void setExpDate(LocalDate exp) {
+        expDate = exp;
     }
 
-    private void makeConsistent(){
-        /*resolve conflict between all variables*/
+    /**
+     * one of the modifiers for expiration date
+     * @param year int
+     * @param month int
+     * @param day int
+     */
+    public void setExpDate(int year, int month, int day){
+
+    }
+
+    public void rewite(LocalDate EXP, String N, LocalDate perDate, int Rem, int c) {
+        name=N; expDate=EXP; BuyDate=perDate; Reminder=Rem; count=c;
     }
 
 
