@@ -70,13 +70,64 @@ public class Item {
     }
 
 
-    //Notify
+    //Modifiers
 
-    //Modifier
-    //Works just like constructor, just replaces everything.
+    /**
+     * set name
+     * @param n string of name
+     */
+    public void setName(String n)
+    {
+        name = n;
+    }
+
+    /**
+     * set count
+     * @param c int count
+     */
+    public void setCount(int c){
+        count = c;
+    }
+
+    /**
+     * One of the modifier for buydate
+     * @param buy local date
+     */
+    public void setBuyDate(LocalDate buy){
+        buyDate = buy;
+    }
+
+    /**
+     * One of the modifier for buydate
+     * @param year int
+     * @param month int
+     * @param day int
+     */
+    public void setBuyDate(int year, int month, int day) {
+
+    }
+
+    /**
+     * one of the modifers for expiration date
+     * @param exp expiration local date
+     */
+    public void setExpDate(LocalDate exp) {
+        expDate = exp;
+    }
+
+    /**
+     * one of the modifiers for expiration date
+     * @param year int
+     * @param month int
+     * @param day int
+     */
+    public void setExpDate(int year, int month, int day){
+
+    }
+
     public void rewite(LocalDate EXP, String N, LocalDate perDate, int Rem, int c) {
         name=N; expDate=EXP; BuyDate=perDate; Reminder=Rem; count=c;
     }
-    */
+
 
 }
