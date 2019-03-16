@@ -8,8 +8,14 @@ public class Item {
     private int count;
     private LocalDate buyDate;
     private LocalDate expDate;
+    String imgPath; //TODO: Include this field
 
     //Constructor
+    //TODO: THIS CONSTRUCTOR is used in main activity
+    public Item(String n, String i){
+        this.name = n;
+        this.imgPath = i;
+    }
 
     /**
      * empty constructor
@@ -156,5 +162,9 @@ public class Item {
         setBuyDate(buyYear,buyMonth,buyDay);
         setExpDate(expYear,expMonth,expDay);
     }
+
+    // Add page, resolve conflict - Judy
+    // merge add page with item class - Judy
+
 
 }
