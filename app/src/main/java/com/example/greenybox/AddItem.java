@@ -32,6 +32,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.joda.time.LocalDate;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -43,17 +45,19 @@ public class AddItem extends AppCompatActivity {
 
     private TextView pDate; //purchase date text-box
     private DatePickerDialog.OnDateSetListener pDateSetListener; //purchase date event listener
-
-
     private TextView eDate; //expiration date text-box
     private  DatePickerDialog.OnDateSetListener eDateSetListener; //expiration date event listener
 
     private EditText pDays; //days to preserve
+    private EditText itemCount; //count of item
     private EditText itemName; //Item Name
 
     private final String TAG = getClass().getSimpleName();
     private ImageView mPicture;
     private static final int CHOOSE_PHOTO = 385;
+
+    private final Item i = new Item();
+    private LocalDate today = new LocalDate();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,18 +65,22 @@ public class AddItem extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_item);
 
-        pDays = findViewById(R.id.preserveDay);
+        //link xml element to fields
+        itemName = findViewById(R.id.itemName);
+        itemCount = findViewById(R.id.unit);
         pDate = findViewById(R.id.purchaseDate);
         eDate = findViewById(R.id.expirationDate);
-        itemName = findViewById(R.id.itemName);
+        pDays = findViewById(R.id.preserveDay);
 
-        /* Item Name response */
+        //Item name on change response
         itemName.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 boolean handled = false;
                 if (actionId == EditorInfo.IME_ACTION_DONE) {
-                    //Perform your Actions here.
+                    //set i's name field
+                    i.setName(itemName.getText().toString());
+                    //UI clear focus
                     InputMethodManager imm = (InputMethodManager) v.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
                     imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
                     itemName.clearFocus();
@@ -82,63 +90,34 @@ public class AddItem extends AppCompatActivity {
             }
         });
 
-        /*preserve days response*/
-        pDays.addTextChangedListener(new TextWatcher() {
+        //Item count on change response
+        itemCount.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                System.out.println("beforeTextChanged s: " + s + " start: "+ start + " count" + count + " after: "+after);
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                System.out.println("onTextChanged s: " + s + " start: "+ start + " before: "+before+" count" + count);
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                System.out.println("afterTextChanged: "+s);
-
-                //Do not respond to temporary changes
-                if (s.length() == 0){
-                    return;
+            public boolean onEditorAction(TextView textView, int actionId,
+                                          KeyEvent keyEvent) { //triggered when done editing (as clicked done on keyboard)
+                if (actionId == EditorInfo.IME_ACTION_DONE) {
+                    //user input count
+                    String countText = itemCount.getText().toString();
+                    int count = Integer.parseInt(countText);
+                    //set item count field
+                    i.setCount(count);
+                    //clear UI focus
+                    itemCount.clearFocus();
                 }
-
-                String purchaseText = (String)pDate.getText();
-                //if purchase date is empty, do not respond
-                if (purchaseText.length() == 0){
-                    return;
-                }
-
-                int days = Integer.parseInt(s.toString());
-                System.out.println("converting to int: "+days);
-
-                String purchase = purchaseText.substring(purchaseText.length()-10);
-                SimpleDateFormat myFormat = new SimpleDateFormat("MM/dd/yyyy");
-                try {
-                    Date purchaseDate = myFormat.parse(purchase);
-                    Calendar c = Calendar.getInstance();
-                    c.setTime(purchaseDate);
-                    c.add(Calendar.DATE, days);
-                    Date expirationDate = c.getTime();
-                    String dateFormatted = myFormat.format(expirationDate);
-                    System.out.println(dateFormatted);
-                    eDate.setText("Purchase Date: "+dateFormatted);
-
-                }catch (ParseException e){
-                    e.printStackTrace();
-                }
+                return false;
             }
         });
 
-        //============Purchase Date modifier============
+        //Purchase date response
         pDate.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
+                //generate today's date
                 Calendar cal = Calendar.getInstance();
                 int year = cal.get(Calendar.YEAR);
                 int month = cal.get(Calendar.MONTH);
                 int day = cal.get(Calendar.DAY_OF_MONTH);
-
+                //set date picker dialog to start with today's date
                 DatePickerDialog dialog = new DatePickerDialog(
                         AddItem.this,
                         android.R.style.Theme_Holo_Light,
@@ -154,29 +133,42 @@ public class AddItem extends AppCompatActivity {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                 month = month+1;
-                String date = month + "/" + dayOfMonth + "/" + year;
-                if(month<10){
-                    date = "0" + date;
+                LocalDate pDateInstance = new LocalDate(year,month,dayOfMonth);
+
+                //logic to prevent user from selecting future date
+                if(pDateInstance.isAfter(today)){
+                    pDate.setHint("Purchased in the future?");
+                    return;
                 }
-                date = "Purchase Date: "+ date;
+
+                //display date
+                String date = "Purchase Date: " + pDateInstance.toString();
                 pDate.setText(date);
-                if (eDate.getText().length()>0){
-                    int days = calDayDifference();
-                    String dayStr = Integer.toString(days);
-                    pDays.setText(dayStr);
+
+                //change item field
+                i.setBuyDate(pDateInstance);
+
+                //resolve potential conflict
+                if(pDays.getText().length()>0){
+                    i.resolve(Integer.parseInt(pDays.getText().toString()));
+                    itemUpdate();
                 }
+
             }
         };
 
-        //=============== expiration date dialog picker ===========
+
+        //expiration date response
         eDate.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
+                //start with today's date
                 Calendar cal = Calendar.getInstance();
                 int year = cal.get(Calendar.YEAR);
                 int month = cal.get(Calendar.MONTH);
                 int day = cal.get(Calendar.DAY_OF_MONTH);
 
+                //show date dialog picker
                 DatePickerDialog dialog = new DatePickerDialog(
                         AddItem.this,
                         android.R.style.Theme_Holo_Light,
@@ -192,18 +184,53 @@ public class AddItem extends AppCompatActivity {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                 month = month+1;
-                String date = month + "/" + dayOfMonth + "/" + year;
-                if(month<10){
-                    date = "0" + date;
+                LocalDate eDateInstance = new LocalDate(year,month,dayOfMonth);
+
+                //logic to prevent user from selecting a date after today's and purchase date
+                if (today.isAfter(eDateInstance)){
+                    eDate.setHint("Please throw item out");
+                    return;
                 }
-                date = "Expiration Date: " + date;
+
+                //display date
+                String date = "Expiration Date: " + eDateInstance.toString();
                 eDate.setText(date);
-                int days = calDayDifference();
-                String dayStr = Integer.toString(days);
-                pDays.setText(dayStr);
+
+                //change expDate field in item
+                i.setExpDate(eDateInstance);
+
+                //resolve potential conflict
+                if (i.getBuyDate() != null){
+                    i.resolve(i.preserve());
+                    itemUpdate();
+                }
+
+                if(pDays.getText().length()>0){
+                    i.resolve(Integer.parseInt(pDays.getText().toString()));
+                    itemUpdate();
+                }
             }
         };
 
+
+        //preserve input response
+        pDays.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView textView, int actionId,
+                                          KeyEvent keyEvent) { //triggered when done editing (as clicked done on keyboard)
+                if (actionId == EditorInfo.IME_ACTION_DONE) {
+                    //user input pdays
+                    String pDaysText = pDays.getText().toString();
+                    int pdays = Integer.parseInt(pDaysText);
+                    //resolve potential conflict
+                    i.resolve(pdays);
+                    itemUpdate();
+                    //UI clear focus
+                    pDays.clearFocus();
+                }
+                return false;
+            }
+        });
 
         // Click to select image from album
         mPicture = findViewById(R.id.ivPicture);
@@ -220,43 +247,25 @@ public class AddItem extends AppCompatActivity {
     }
 
     /**
-     * Calculates the difference between 2 days
-     * @param
-     * @param
-     * @return difference between first date and second date
+     * Update all text fields based on item information
      */
-    private static long daysBetween(Date one, Date two) {
-        long difference =  (one.getTime()-two.getTime())/86400000;
-        return difference;
-    }
-
-    /**
-     * @function: Calculate the difference between purchase date and expiration date
-     * @return Difference in days between purchase date and expiration date
-     * @bug: March 10th 2019 is a weird date
-     */
-    /*
-
-     */
-    private int calDayDifference(){
-        String expirationText = (String)eDate.getText();
-        String expiration = expirationText.substring(expirationText.length()-10);
-        String purchaseText = (String)pDate.getText();
-        String purchase = purchaseText.substring(purchaseText.length()-10);
-        SimpleDateFormat myFormat = new SimpleDateFormat("MM/dd/yyyy");
-        System.out.println("I am trying: " + expiration + " " + purchase);
-        try {
-            Date date1 = myFormat.parse(expiration);
-            Date date2 = myFormat.parse(purchase);
-            int days = (int)daysBetween(date1,date2);
-            System.out.println ("Difference in Days: " + days);
-            return days;
-        } catch (ParseException e) {
-            e.printStackTrace();
+    private void itemUpdate(){
+        if (i.getCount() > 0){
+            itemCount.setText(String.valueOf(i.getCount()));
         }
-        return 0;
+        if(i.getName().length() > 0){
+            itemName.setText(i.getName());
+        }
+        if(i.getBuyDate() != null ){
+            pDate.setText("Purchase Date: " + i.getBuyDate().toString());
+        }
+        if(i.getExpDate() != null){
+            eDate.setText("Expiration Date: " + i.getExpDate().toString());
+        }
+        if(i.getBuyDate() != null && i.getExpDate() != null){
+            pDays.setText(String.valueOf(i.preserve()));
+        }
     }
-
 
     /**
      * Create Intent to open imageView.
