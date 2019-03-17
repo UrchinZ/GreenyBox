@@ -1,5 +1,6 @@
 package com.example.greenybox;
 
+import org.joda.time.Days;
 import org.joda.time.LocalDate;
 
 public class Item {
@@ -165,6 +166,51 @@ public class Item {
 
     // Add page, resolve conflict - Judy
     // merge add page with item class - Judy
+
+    /**
+     * calculates difference between buyDate and expDate
+     * @return int preserve days
+     */
+    public int preserve(){
+        if(buyDate == null || expDate == null){
+            return -1;
+        }
+        return Days.daysBetween(buyDate,expDate).getDays();
+    }
+
+    /**
+     * checks if there is conflict between user input days to preserv
+     * and current preserve days
+     * @param preserveDays days to preserve set based on user input
+     * @return
+     */
+    public boolean conflict(int preserveDays){
+        return preserveDays != preserve();
+    }
+
+    /**
+     * resolve conflict between preserve days and
+     * buyDate and expDate
+     * @param preserveDays days to preserve set based on user input
+     */
+    public void resolve(int preserveDays){
+        //return if no conflict
+        if(!conflict(preserveDays)){
+            return;
+        }
+        //resolve conflict logic
+        if (buyDate != null){
+            expDate = buyDate.plusDays(preserveDays);
+        } else {
+            if (expDate != null) {
+                buyDate = expDate.plusDays(-preserveDays);
+            } else {
+                buyDate = new LocalDate();
+                expDate = buyDate.plusDays(preserveDays);
+            }
+        }
+    }
+
 
 
 }
