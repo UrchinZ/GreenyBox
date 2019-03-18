@@ -3,7 +3,15 @@ package com.example.greenybox;
 import org.joda.time.Days;
 import org.joda.time.LocalDate;
 
-public class Item {
+import java.io.Serializable;
+
+public class Item implements Serializable {
+    /* Functions Serializable gives us:
+    public final Item ObjectInputStream.readObject() throws IOException, ClassNotFoundException
+    public final void ObjectOutputStream.WriteObject(Item X) throws IO Exception
+    TODO: Create a function that saves all data and loads all data
+      Likely to be on MainActivity
+     */
     //Data
     private String name;
     private int count;
