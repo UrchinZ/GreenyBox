@@ -58,7 +58,7 @@ public class AddItem extends AppCompatActivity {
 
     private final Item i = new Item();
     private LocalDate today = new LocalDate();
-
+    //test
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         //show layout
