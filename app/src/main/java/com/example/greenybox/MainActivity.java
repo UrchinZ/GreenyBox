@@ -10,12 +10,6 @@ import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.Toast;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
@@ -72,51 +66,7 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    /**
-     * @param Items Items we want to serialize
-     * @param FileName Name of file we want to save to
-     * @throws IOException
-     */
-    public void WriteEverythingToSingleFile(ArrayList<Item> Items,String FileName) throws IOException {
-        FileOutputStream rawFile=new FileOutputStream(FileName);
-        ObjectOutputStream obFile= new ObjectOutputStream(rawFile);
-        obFile.writeObject(Items);
-        obFile.close();
-        rawFile.close();
-    }
-    /**
-     * @return all serialized Items from the internal directory
-     */
-    public ArrayList<Item> loadEverythingFromManyFiles(){
-        String[] files=fileList();
-        ArrayList<Item> ret= new ArrayList<Item>();
-        for(int i=0; i<files.length;i++) {
-            try {
-                FileInputStream rawFile = new FileInputStream(files[i]);
-                ObjectInputStream obFile = new ObjectInputStream(rawFile);
-                Item readItem=(Item)obFile.readObject();
-                obFile.close();
-                rawFile.close();
-                ret.add(readItem);
-            } catch (Exception ex) {continue;}
-        }
-        return ret;
-    }
 
-    /**
-     * @param Filename string which we store the item list
-     * @return all serialized items from a file of an ArrayList of Items
-     * @throws IOException
-     * @throws ClassNotFoundException
-     */
-    public ArrayList<Item> loadEverythingFromSingleFile(String Filename) throws IOException, ClassNotFoundException {
-        FileInputStream rawFile = new FileInputStream(Filename);
-        ObjectInputStream obFile = new ObjectInputStream(rawFile);
-        ArrayList<Item> ret=(ArrayList<Item>)obFile.readObject();
-        obFile.close();
-        rawFile.close();
-        return ret;
-    }
     /**
      * Called when the user taps the Add button
      * @param view
