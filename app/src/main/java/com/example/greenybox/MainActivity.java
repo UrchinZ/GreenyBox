@@ -66,6 +66,7 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+
     /**
      * Called when the user taps the Add button
      * @param view
