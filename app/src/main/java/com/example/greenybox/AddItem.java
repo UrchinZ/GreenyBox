@@ -40,7 +40,6 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
-
 public class AddItem extends AppCompatActivity {
 
     private TextView pDate; //purchase date text-box
