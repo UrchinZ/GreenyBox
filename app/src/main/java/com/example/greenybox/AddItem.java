@@ -50,8 +50,6 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
-import static android.preference.PreferenceManager.getDefaultSharedPreferences;
-
 
 public class AddItem extends AppCompatActivity {
 

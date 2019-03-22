@@ -70,30 +70,39 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-
-    public static MainActivity getInstance(){
-        return mActivity;
-    }
-
     /**
      * Called when the user taps the Setting button
-     * @author Judy
+     *
      * @param view
+     * @author Judy
      */
     public void goToSetting(View view) {
         // Do something in response to button
-        Intent intent = new Intent(this,Setting.class);
+        Intent intent = new Intent(this, Setting.class);
         startActivity(intent);
     }
 
 
     /**
      * Called when the user taps the Add button
+     *
      * @param view
      */
-    public void goToAdd(View view){
+    public void goToAdd(View view) {
         // Do something in response to button
-        Intent intent = new Intent(this,AddItem.class);
+        Intent intent = new Intent(this, AddItem.class);
+        startActivity(intent);
+    }
+
+    /**
+     * Called when the user taps the Modify button
+     *
+     * @param view
+     * @author SoJung
+     */
+    public void goToModify(View view) {
+        // Do something in response to button
+        Intent intent = new Intent(this, ModifyItem.class);
         startActivity(intent);
     }
 
