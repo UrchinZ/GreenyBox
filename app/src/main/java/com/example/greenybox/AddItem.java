@@ -40,7 +40,6 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
-
 public class AddItem extends AppCompatActivity {
 
     private TextView pDate; //purchase date text-box
@@ -58,7 +57,7 @@ public class AddItem extends AppCompatActivity {
 
     private final Item i = new Item();
     private LocalDate today = new LocalDate();
-    //test
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         //show layout
