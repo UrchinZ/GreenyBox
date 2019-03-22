@@ -23,7 +23,7 @@ public class Setting extends AppCompatActivity {
      */
     public void goToAboutUs(View view) {
         // Do something in response to button
-        Intent intent = new Intent(this, AboutUs.class);
-        startActivity(intent);
+        //Intent intent = new Intent(this, AboutUs.class);
+        //startActivity(intent);
     }
 }

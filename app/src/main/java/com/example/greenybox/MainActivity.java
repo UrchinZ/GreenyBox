@@ -76,6 +76,10 @@ public class MainActivity extends AppCompatActivity {
      * @param view
      * @author Judy
      */
+
+    public static MainActivity getInstance(){
+        return mActivity;
+    }
     public void goToSetting(View view) {
         // Do something in response to button
         Intent intent = new Intent(this, Setting.class);
@@ -102,7 +106,7 @@ public class MainActivity extends AppCompatActivity {
      */
     public void goToModify(View view) {
         // Do something in response to button
-        Intent intent = new Intent(this, ModifyItem.class);
+        Intent intent = new Intent(this, Modify.class);
         startActivity(intent);
     }
 
