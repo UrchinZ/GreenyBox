@@ -6,6 +6,7 @@ import android.app.DatePickerDialog;
 import android.content.ContentUris;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
@@ -14,6 +15,7 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Build;
+import android.os.Environment;
 import android.provider.DocumentsContract;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
@@ -26,19 +28,29 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
+
 import org.joda.time.LocalDate;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
+
+import static android.preference.PreferenceManager.getDefaultSharedPreferences;
 
 
 public class AddItem extends AppCompatActivity {
@@ -46,17 +58,18 @@ public class AddItem extends AppCompatActivity {
     private TextView pDate; //purchase date text-box
     private DatePickerDialog.OnDateSetListener pDateSetListener; //purchase date event listener
     private TextView eDate; //expiration date text-box
-    private  DatePickerDialog.OnDateSetListener eDateSetListener; //expiration date event listener
+    private DatePickerDialog.OnDateSetListener eDateSetListener; //expiration date event listener
 
     private EditText pDays; //days to preserve
     private EditText itemCount; //count of item
     private EditText itemName; //Item Name
 
+
     private final String TAG = getClass().getSimpleName();
     private ImageView mPicture;
     private static final int CHOOSE_PHOTO = 385;
 
-    private final Item i = new Item();
+    private Item i = new Item();;
     private LocalDate today = new LocalDate();
 
     @Override
@@ -72,6 +85,7 @@ public class AddItem extends AppCompatActivity {
         eDate = findViewById(R.id.expirationDate);
         pDays = findViewById(R.id.preserveDay);
 
+
         //Item name on change response
         itemName.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
@@ -80,6 +94,7 @@ public class AddItem extends AppCompatActivity {
                 if (actionId == EditorInfo.IME_ACTION_DONE) {
                     //set i's name field
                     i.setName(itemName.getText().toString());
+                    Log.d(TAG, "NameChange: "+i.getName());
                     //UI clear focus
                     InputMethodManager imm = (InputMethodManager) v.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
                     imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
@@ -264,6 +279,32 @@ public class AddItem extends AppCompatActivity {
         }
         if(i.getBuyDate() != null && i.getExpDate() != null){
             pDays.setText(String.valueOf(i.preserve()));
+        }
+    }
+
+    public void onButtonClicked(View view) {
+        save();
+        Intent intent = new Intent(this,MainActivity.class);
+        startActivity(intent);
+    }
+
+    public void save(){
+        try {
+            File file = getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS);
+            Log.d(TAG, "save: "+file.getAbsolutePath());
+            Log.d(TAG, "save: "+i.getName());
+            FileOutputStream fileOutputStream = new FileOutputStream(file.getAbsolutePath()+"/items");
+            ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
+            MainActivity.getInstance().mData.add(i);
+            objectOutputStream.writeObject(MainActivity.getInstance().mData);
+
+            objectOutputStream.close();
+            fileOutputStream.close();
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
