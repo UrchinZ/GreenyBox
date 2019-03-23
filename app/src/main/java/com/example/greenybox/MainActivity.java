@@ -33,6 +33,7 @@ public class MainActivity extends AppCompatActivity {
     public ArrayList<Item> mData;
     static MainActivity mActivity;
     private static final String TAG = "MainActivity";
+    public int modify = -1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,11 +62,15 @@ public class MainActivity extends AppCompatActivity {
                 // Set img maybe jump some where
                 // setImageResource(R.id.img_icon, obj.getiId());
                 // TODO: THIS IS WHERE MODIFY SHOULD HAPPEND
-                Toast.makeText(mContext, "Clicked" + position + ":", Toast.LENGTH_SHORT).show();
-                mData.remove(position);
-                Intent intent = getIntent();
-                finish();
-                startActivity(intent);
+                //Toast.makeText(mContext, "Clicked" + position + ":", Toast.LENGTH_SHORT).show();
+                //mData.remove(position);
+                //Intent intent = getIntent();
+                //finish();
+                //startActivity(intent);
+                modify = position;
+                //I need some kind of visual representation to
+                //show which one is selected
+                System.out.println("inside main: set position to " + String.valueOf(modify));
             }
         });
     }
@@ -76,14 +81,18 @@ public class MainActivity extends AppCompatActivity {
      * @param view
      * @author Judy
      */
-
-    public static MainActivity getInstance(){
-        return mActivity;
-    }
     public void goToSetting(View view) {
         // Do something in response to button
         Intent intent = new Intent(this, Setting.class);
         startActivity(intent);
+    }
+
+    /**
+     *
+     * @return instance of main activity
+     */
+    public static MainActivity getInstance(){
+        return mActivity;
     }
 
 
@@ -105,8 +114,13 @@ public class MainActivity extends AppCompatActivity {
      * @author SoJung
      */
     public void goToModify(View view) {
-        // Do something in response to button
+        if (modify == -1){
+            System.out.println("item not selected");
+        }
+        System.out.println("item position selected in main: " + String.valueOf(modify));
+
         Intent intent = new Intent(this, Modify.class);
+        intent.putExtra("position",modify);
         startActivity(intent);
     }
 
