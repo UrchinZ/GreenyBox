@@ -56,6 +56,8 @@ public class MainActivity extends AppCompatActivity {
 
         grid_photo.setAdapter(mAdapter);
 
+
+
         grid_photo.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -170,7 +172,16 @@ public class MainActivity extends AppCompatActivity {
     @TargetApi(24)
     public void sort(View view) {
         mData.sort((o1,o2) -> o1.getName().compareTo(o2.getName()));
-        view.refreshDrawableState();
+        GridView grid_photo = (GridView) findViewById(R.id.grid_photo);
+        final BaseAdapter mAdapter = new MyAdapter<Item>(mData, R.layout.item_grid) {
+            @Override
+            public void bindView(ViewHolder holder, Item obj) {
+
+                holder.setText(R.id.txt_icon, obj.getName());
+            }
+        };
+
+        grid_photo.setAdapter(mAdapter);
     }
 
 
