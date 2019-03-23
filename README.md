@@ -2,4 +2,4 @@
 ### GreenyBox
 Leave no food behind
 ## Android Application requirements:
-JDK java language level: 8
+JDK java language level: JDK_1_8
