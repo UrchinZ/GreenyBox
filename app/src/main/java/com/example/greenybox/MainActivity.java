@@ -1,5 +1,6 @@
 package com.example.greenybox;
 
+import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -71,15 +72,21 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
+     * Dashboard instance.
+     * @return
+     */
+    public static MainActivity getInstance(){
+        return mActivity;
+    }
+
+    /**
      * Called when the user taps the Setting button
      *
      * @param view
      * @author Judy
      */
 
-    public static MainActivity getInstance(){
-        return mActivity;
-    }
+
     public void goToSetting(View view) {
         // Do something in response to button
         Intent intent = new Intent(this, Setting.class);
@@ -154,5 +161,17 @@ public class MainActivity extends AppCompatActivity {
             e.printStackTrace();
         }
     }
+
+
+    /**
+     * TODO: this is for now only for names, further implement in item class or add more sort.
+     * api 24 min
+     */
+    @TargetApi(24)
+    public void sort(View view) {
+        mData.sort((o1,o2) -> o1.getName().compareTo(o2.getName()));
+        view.refreshDrawableState();
+    }
+
 
 }
