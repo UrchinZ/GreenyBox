@@ -25,6 +25,8 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 import static android.preference.PreferenceManager.getDefaultSharedPreferences;
 
@@ -97,15 +99,6 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this, Setting.class);
         startActivity(intent);
     }
-
-    /**
-     *
-     * @return instance of main activity
-     */
-    public static MainActivity getInstance(){
-        return mActivity;
-    }
-
 
     /**
      * Called when the user taps the Add button
@@ -187,7 +180,13 @@ public class MainActivity extends AppCompatActivity {
      */
     @TargetApi(24)
     public void sort(View view) {
-        mData.sort((o1,o2) -> o1.getName().compareTo(o2.getName()));
+        //mData.sort((o1,o2) -> o1.getName().compareTo(o2.getName()));
+        Collections.sort(mData, new Comparator<Item>() {
+            @Override
+            public int compare(Item o1, Item o2) {
+                return o1.getName().compareTo(o2.getName());
+            }
+        });
         GridView grid_photo = (GridView) findViewById(R.id.grid_photo);
         final BaseAdapter mAdapter = new MyAdapter<Item>(mData, R.layout.item_grid) {
             @Override
