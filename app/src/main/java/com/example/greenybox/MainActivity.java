@@ -1,5 +1,6 @@
 package com.example.greenybox;
 
+import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -56,6 +57,8 @@ public class MainActivity extends AppCompatActivity {
 
         grid_photo.setAdapter(mAdapter);
 
+
+
         grid_photo.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -73,6 +76,14 @@ public class MainActivity extends AppCompatActivity {
                 System.out.println("inside main: set position to " + String.valueOf(modify));
             }
         });
+    }
+
+    /**
+     * Dashboard instance.
+     * @return
+     */
+    public static MainActivity getInstance(){
+        return mActivity;
     }
 
     /**
@@ -168,5 +179,26 @@ public class MainActivity extends AppCompatActivity {
             e.printStackTrace();
         }
     }
+
+
+    /**
+     * TODO: this is for now only for names, further implement in item class or add more sort.
+     * api 24 min
+     */
+    @TargetApi(24)
+    public void sort(View view) {
+        mData.sort((o1,o2) -> o1.getName().compareTo(o2.getName()));
+        GridView grid_photo = (GridView) findViewById(R.id.grid_photo);
+        final BaseAdapter mAdapter = new MyAdapter<Item>(mData, R.layout.item_grid) {
+            @Override
+            public void bindView(ViewHolder holder, Item obj) {
+
+                holder.setText(R.id.txt_icon, obj.getName());
+            }
+        };
+
+        grid_photo.setAdapter(mAdapter);
+    }
+
 
 }
