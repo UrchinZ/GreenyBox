@@ -199,5 +199,21 @@ public class MainActivity extends AppCompatActivity {
         grid_photo.setAdapter(mAdapter);
     }
 
-
+    /**
+     *
+     *
+     */
+    public void sortBuyDate(View view) {
+        Collections.sort(mData, new Comparator<Item>() {
+            @Override
+            public int compare(Item o1, Item o2) { return o1.getBuyDate().compareTo(o2.getBuyDate()); }
+        });
+    }
+    GridView grid_photo = (GridView) findViewById(R.id.grid_photo);
+    final BaseAdapter mAdapter = new MyAdapter<Item>(mData, R.layout.item_grid) {
+        @Override
+        public void bindView(ViewHolder holder, Item obj) {
+            holder.setText(R.id.txt_icon, obj.getName());
+        }
+    };
 }
