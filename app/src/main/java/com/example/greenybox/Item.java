@@ -3,16 +3,26 @@ package com.example.greenybox;
 import org.joda.time.Days;
 import org.joda.time.LocalDate;
 
-public class Item {
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
+import java.util.ArrayList;
+
+public class Item implements Serializable {
+
     //Data
     private String name;
     private int count;
     private LocalDate buyDate;
     private LocalDate expDate;
     String imgPath; //TODO: Include this field
+    private double id;
 
     //Constructor
-    //TODO: THIS CONSTRUCTOR is used in main activity
+    //THIS CONSTRUCTOR is used in main activity
     public Item(String n, String i){
         this.name = n;
         this.imgPath = i;
@@ -209,6 +219,64 @@ public class Item {
                 expDate = buyDate.plusDays(preserveDays);
             }
         }
+    }
+    //Serialization
+
+    /**
+     * Writes a single item to a file
+     * @param writeable Item to write.
+     */
+    public static void WriteItemToFile(Item writeable, String FileName) throws IOException {
+        FileOutputStream rawFile=new FileOutputStream(FileName);
+        ObjectOutputStream obFile= new ObjectOutputStream(rawFile);
+        obFile.writeObject(writeable);
+        obFile.close();
+        rawFile.close();
+    }
+    /**
+     * @param Items Items we want to serialize
+     * @param FileName Name of file we want to save to
+     * @throws IOException
+     */
+    public static void WriteEverythingToSingleFile(ArrayList<Item> Items, String FileName) throws IOException {
+        FileOutputStream rawFile=new FileOutputStream(FileName);
+        ObjectOutputStream obFile= new ObjectOutputStream(rawFile);
+        obFile.writeObject(Items);
+        obFile.close();
+        rawFile.close();
+    }
+    /**
+     * @param files CALL fileList(); FOR THIS ARGUMENT
+     * @return all serialized Items from the internal directory
+     */
+    public static ArrayList<Item> loadEverythingFromManyFiles(String[] files){
+        ArrayList<Item> ret= new ArrayList<Item>();
+        for(int i=0; i<files.length;i++) {
+            try {
+                FileInputStream rawFile = new FileInputStream(files[i]);
+                ObjectInputStream obFile = new ObjectInputStream(rawFile);
+                Item readItem=(Item)obFile.readObject();
+                obFile.close();
+                rawFile.close();
+                ret.add(readItem);
+            } catch (Exception ex) {continue;}
+        }
+        return ret;
+    }
+
+    /**
+     * @param Filename string which we store the item list
+     * @return all serialized items from a file of an ArrayList of Items
+     * @throws IOException
+     * @throws ClassNotFoundException
+     */
+    public static ArrayList<Item> loadEverythingFromSingleFile(String Filename) throws IOException, ClassNotFoundException {
+        FileInputStream rawFile = new FileInputStream(Filename);
+        ObjectInputStream obFile = new ObjectInputStream(rawFile);
+        ArrayList<Item> ret=(ArrayList<Item>)obFile.readObject();
+        obFile.close();
+        rawFile.close();
+        return ret;
     }
 
 
