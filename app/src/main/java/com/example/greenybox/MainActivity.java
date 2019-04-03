@@ -76,6 +76,7 @@ public class MainActivity extends AppCompatActivity {
                 //I need some kind of visual representation to
                 //show which one is selected
                 System.out.println("inside main: set position to " + String.valueOf(modify));
+                goToModify(view);
             }
         });
     }
