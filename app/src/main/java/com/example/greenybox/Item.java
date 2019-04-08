@@ -23,10 +23,10 @@ public class Item implements Serializable {
 
     //Constructor
     //THIS CONSTRUCTOR is used in main activity
-    public Item(String n, String i){
+    /*public Item(String n, String i){
         this.name = n;
         this.imgPath = i;
-    }
+    }*/
 
     /**
      * empty constructor

@@ -299,15 +299,18 @@ public class AddItem extends AppCompatActivity {
             text = "Please put in a proper purchase date";
             field_check = false;
         }
-        
+        //display proper message
         Toast toast = Toast.makeText(context, text, duration);
         toast.show();
 
+        //save item information only if required fields are met
         if (field_check == true){
             save();
         } else {
             return;
         }
+
+        //finish current activity and head to dashboard
         Intent intent = new Intent(this,MainActivity.class);
         finish();
         startActivity(intent);
