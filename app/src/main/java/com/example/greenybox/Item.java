@@ -18,7 +18,7 @@ public class Item implements Serializable {
     private int count;
     private LocalDate buyDate;
     private LocalDate expDate;
-    String imgPath; //TODO: Include this field
+    private String imgPath; //TODO: Include this field
     private double id;
 
     //Constructor

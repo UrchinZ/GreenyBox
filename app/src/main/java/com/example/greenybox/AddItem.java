@@ -249,13 +249,13 @@ public class AddItem extends AppCompatActivity {
         mPicture = findViewById(R.id.ivPicture);
         ImageView mChooseFromAlbum = findViewById(R.id.ivPicture);
 
-
-        mChooseFromAlbum.setOnClickListener(new View.OnClickListener() {
+        //disable image setting
+        /*mChooseFromAlbum.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 openAlbum();
             }
-        });
+        });*/
 
     }
 
@@ -280,12 +280,42 @@ public class AddItem extends AppCompatActivity {
         }
     }
 
+    /**
+     * save button function
+     * @param view
+     */
     public void onButtonClicked(View view) {
-        save();
+        Context context = getApplicationContext();
+        CharSequence text = "save successful!";
+        boolean field_check = true;
+        int duration = Toast.LENGTH_SHORT;
+
+        if(i.getName().length() == 0){
+            text = "Please put in a proper name";
+            field_check = false;
+        }
+
+        if (i.getBuyDate() == null){
+            text = "Please put in a proper purchase date";
+            field_check = false;
+        }
+        
+        Toast toast = Toast.makeText(context, text, duration);
+        toast.show();
+
+        if (field_check == true){
+            save();
+        } else {
+            return;
+        }
         Intent intent = new Intent(this,MainActivity.class);
+        finish();
         startActivity(intent);
     }
 
+    /**
+     * save to file
+     */
     public void save(){
         try {
             File file = getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS);
@@ -309,11 +339,12 @@ public class AddItem extends AppCompatActivity {
     /**
      * Create Intent to open imageView.
      */
-    private void openAlbum() {
+    /*private void openAlbum() {
+        System.out.println("inside openAlbum");
         Intent openAlbumIntent = new Intent(Intent.ACTION_GET_CONTENT);
         openAlbumIntent.setType("image/*");
         startActivityForResult(openAlbumIntent, CHOOSE_PHOTO);
-    }
+    }*/
 
     /**
      * Get Permission Request Results.
@@ -321,7 +352,7 @@ public class AddItem extends AppCompatActivity {
      * @param permissions
      * @param grantResults
      */
-    @Override
+    /*@Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
@@ -330,7 +361,7 @@ public class AddItem extends AppCompatActivity {
             Log.i(TAG, "onRequestPermissionsResult: permission denied");
             Toast.makeText(this, "You Denied Permission", Toast.LENGTH_SHORT).show();
         }
-    }
+    }*/
 
     /**
      * Get Image Activity data.
@@ -338,7 +369,7 @@ public class AddItem extends AppCompatActivity {
      * @param resultCode
      * @param data
      */
-    @Override
+    /*@Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         switch (requestCode) {
             case CHOOSE_PHOTO:
@@ -357,23 +388,23 @@ public class AddItem extends AppCompatActivity {
             default:
                 break;
         }
-    }
+    }*/
 
     /**
      * Get data image path. (Standard)
      * @param data
      */
-    private void handleImageBeforeKitKat(Intent data) {
+    /*private void handleImageBeforeKitKat(Intent data) {
         Uri uri = data.getData();
         String imagePath = getImagePath(uri, null);
         displayImage(imagePath);
-    }
+    }*/
 
     /**
      * Get data image path. (version compatible)
      * @param data
      */
-    @TargetApi(19)
+    /*@TargetApi(19)
     private void handleImageOnKitKat(Intent data) {
         String imagePath = null;
         Uri uri = data.getData();
@@ -393,20 +424,20 @@ public class AddItem extends AppCompatActivity {
             imagePath = uri.getPath();
         }
         displayImage(imagePath);
-    }
+    }*/
 
     /**
      * Display Image.
      * @param imagePath
      */
-    private void displayImage(String imagePath) {
+    /*private void displayImage(String imagePath) {
         if (imagePath != null) {
             Bitmap bitmap = BitmapFactory.decodeFile(imagePath);
             mPicture.setImageBitmap(bitmap);
         } else {
             Toast.makeText(this, "failed to get image", Toast.LENGTH_SHORT).show();
         }
-    }
+    }*/
 
 
     /**
@@ -415,7 +446,7 @@ public class AddItem extends AppCompatActivity {
      * @param selection
      * @return
      */
-    private String getImagePath(Uri uri, String selection) {
+    /*private String getImagePath(Uri uri, String selection) {
         String path = null;
         Cursor cursor = getContentResolver().query(uri, null, selection, null, null);
         if (cursor != null) {
@@ -425,5 +456,5 @@ public class AddItem extends AppCompatActivity {
             cursor.close();
         }
         return path;
-    }
+    }*/
 }
