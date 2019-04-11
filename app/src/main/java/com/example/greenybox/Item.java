@@ -86,6 +86,25 @@ public class Item implements Serializable {
         return expDate;
     }
 
+    /**
+     * Definition of freshness:
+     * diff < 0: discard (0)
+     * diff == 0 or diff == 1 (or notification day): urgent (1)
+     * diff > 1: fresh (2)
+     * @return freshness
+     */
+    public int Freshness(){
+        LocalDate today = new LocalDate();
+        int diff = Days.daysBetween(today,expDate).getDays();
+        int freshness = 2;
+        if (diff < 0) {
+            freshness = 0;
+        } else if (diff == 0 || diff == 1){
+            freshness = 1;
+        }
+        return freshness;
+    }
+
 
     //Modifiers
 
