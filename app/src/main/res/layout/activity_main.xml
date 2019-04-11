@@ -42,19 +42,6 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/modifyBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginRight="16dp"
-        android:onClick="goToModify"
-        android:text="@string/modify"
-        app:layout_constraintBottom_toTopOf="@+id/grid_photo"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <Button
         android:id="@+id/sortBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

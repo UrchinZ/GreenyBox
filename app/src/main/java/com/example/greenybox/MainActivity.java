@@ -60,7 +60,7 @@ public class MainActivity extends AppCompatActivity {
         grid_photo.setAdapter(mAdapter);
 
 
-
+        //add new click listener to grid photo
         grid_photo.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -73,9 +73,8 @@ public class MainActivity extends AppCompatActivity {
                 //finish();
                 //startActivity(intent);
                 modify = position;
-                //I need some kind of visual representation to
-                //show which one is selected
                 System.out.println("inside main: set position to " + String.valueOf(modify));
+                goToModify(view);
             }
         });
     }
