@@ -52,7 +52,17 @@ public class MainActivity extends AppCompatActivity {
         final BaseAdapter mAdapter = new MyAdapter<Item>(mData, R.layout.item_grid) {
             @Override
             public void bindView(ViewHolder holder, Item obj) {
-
+                View i = holder.getItemView();
+                if(obj.Freshness() < 0){
+                    System.out.println("Discard");
+                    holder.setImageResource(R.id.status_icon,R.color.discard);
+                } else if(obj.Freshness() > 1){
+                    System.out.println("Fresh");
+                    holder.setImageResource(R.id.status_icon,R.color.fresh);
+                } else{
+                    System.out.println("Urgent");
+                    holder.setImageResource(R.id.status_icon,R.color.urgent);
+                }
                 holder.setText(R.id.txt_icon, obj.getName());
             }
         };
