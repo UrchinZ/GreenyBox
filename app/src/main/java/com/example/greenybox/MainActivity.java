@@ -96,7 +96,6 @@ public class MainActivity extends AppCompatActivity {
     public void goToSetting(View view) {
         // Do something in response to button
         Intent intent = new Intent(this, Setting.class);
-        finish();
         startActivity(intent);
     }
 
