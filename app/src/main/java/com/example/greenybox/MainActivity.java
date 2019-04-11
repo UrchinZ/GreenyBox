@@ -206,7 +206,13 @@ public class MainActivity extends AppCompatActivity {
     public void sortBuyDate(View view) {
         Collections.sort(mData, new Comparator<Item>() {
             @Override
-            public int compare(Item o1, Item o2) { return o1.getBuyDate().compareTo(o2.getBuyDate()); }
+            public int compare(Item o1, Item o2) {
+                if (o1.getBuyDate().isAfter(o2.getBuyDate())) {
+                    return 1;
+                } else {
+                    return -1;
+                }
+            }
         });
         GridView grid_photo = (GridView) findViewById(R.id.grid_photo);
         final BaseAdapter mAdapter = new MyAdapter<Item>(mData, R.layout.item_grid) {
