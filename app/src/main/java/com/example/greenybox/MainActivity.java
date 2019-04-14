@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
@@ -180,17 +181,22 @@ public class MainActivity extends AppCompatActivity {
      */
     @TargetApi(24)
     public void sort(View view) {
+        Button sortButton = (Button)findViewById(R.id.sortBtn);
         //mData.sort((o1,o2) -> o1.getName().compareTo(o2.getName()));
         Collections.sort(mData, new Comparator<Item>() {
             @Override
             public int compare(Item o1, Item o2) {
                 if (sortID == 0) {
+                    sortButton.setText("Sort: Name");
                     return o1.getName().compareTo(o2.getName());
                 } else if (sortID == 1) {
+                    sortButton.setText("Sort: Buy Date");
                     return o1.getBuyDate().isAfter(o2.getBuyDate()) ? 1 : -1;
                 } else if (sortID == 2) {
+                    sortButton.setText("Sort: Exp Date");
                     return o1.getExpDate().isAfter(o2.getExpDate()) ? 1 : -1;
                 } else {
+                    sortButton.setText("Sort: Freshness");
                     return o1.Freshness() >= o2.Freshness() ? 1 : -1;
                 }
             }
