@@ -7,4 +7,7 @@
     <string name="delete_btn">Delete</string>
     <string name="modify">Modify</string>
     <string name="sort">Sort</string>
+    <string name="sortBuyDate">SortBuyDate</string>
+    <string name="sortExpDate">SortExpDate</string>
+    <string name="sortFreshness">SortFreshness</string>
 </resources>
