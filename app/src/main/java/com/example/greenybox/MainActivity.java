@@ -36,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
     public ArrayList<Item> mData;
     static MainActivity mActivity;
     private static final String TAG = "MainActivity";
+    private int sortID = 0;
     public int modify = -1;
 
     @Override
@@ -183,9 +184,19 @@ public class MainActivity extends AppCompatActivity {
         Collections.sort(mData, new Comparator<Item>() {
             @Override
             public int compare(Item o1, Item o2) {
-                return o1.getName().compareTo(o2.getName());
+                if (sortID == 0) {
+                    return o1.getName().compareTo(o2.getName());
+                } else if (sortID == 1) {
+                    return o1.getBuyDate().isAfter(o2.getBuyDate()) ? 1 : -1;
+                } else if (sortID == 2) {
+                    return o1.getExpDate().isAfter(o2.getExpDate()) ? 1 : -1;
+                } else {
+                    return o1.Freshness() >= o2.Freshness() ? 1 : -1;
+                }
             }
         });
+        sortID += 1;
+        if (sortID == 4) sortID = 0;
         GridView grid_photo = (GridView) findViewById(R.id.grid_photo);
         final BaseAdapter mAdapter = new MyAdapter<Item>(mData, R.layout.item_grid) {
             @Override
@@ -206,11 +217,7 @@ public class MainActivity extends AppCompatActivity {
         Collections.sort(mData, new Comparator<Item>() {
             @Override
             public int compare(Item o1, Item o2) {
-                if (o1.getBuyDate().isAfter(o2.getBuyDate())) {
-                    return 1;
-                } else {
-                    return -1;
-                }
+                return o1.getBuyDate().isAfter(o2.getBuyDate()) ? 1 : -1;
             }
         });
         GridView grid_photo = (GridView) findViewById(R.id.grid_photo);
@@ -258,7 +265,7 @@ public class MainActivity extends AppCompatActivity {
         Collections.sort(mData, new Comparator<Item>() {
             @Override
             public int compare(Item o1, Item o2) {
-                if (o1.Freshness() > o2.Freshness()) {
+                if (o1.Freshness() >= o2.Freshness()) {
                     return 1;
                 } else {
                     return -1;

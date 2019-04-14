@@ -60,7 +60,7 @@
         android:layout_marginLeft="9dp"
         android:layout_marginBottom="68dp"
         android:onClick="sortBuyDate"
-        android:text="@string/sort"
+        android:text="@string/sortBuyDate"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@+id/sortBtn" />
 
@@ -72,7 +72,7 @@
         android:layout_marginLeft="113dp"
         android:layout_marginBottom="17dp"
         android:onClick="sortExpDate"
-        android:text="Button"
+        android:text="@string/sortExpDate"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -84,7 +84,7 @@
         android:layout_marginLeft="15dp"
         android:layout_marginBottom="17dp"
         android:onClick="sortFreshness"
-        android:text="Button"
+        android:text="@string/sortFreshness"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
