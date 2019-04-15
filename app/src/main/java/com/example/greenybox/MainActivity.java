@@ -35,9 +35,12 @@ public class MainActivity extends AppCompatActivity {
     public ArrayList<Item> mData;
     static MainActivity mActivity;
     private static final String TAG = "MainActivity";
-    //private int sortID = 0;
     public int modify = -1;
 
+    /**
+     * Activities that start when page is initiated
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,18 +55,6 @@ public class MainActivity extends AppCompatActivity {
         final BaseAdapter mAdapter = new MyAdapter<Item>(mData, R.layout.item_grid) {
             @Override
             public void bindView(ViewHolder holder, Item obj) {
-                View i = holder.getItemView();
-                if(obj.Freshness() < 0){
-                    System.out.println("Discard");
-                    holder.setImageResource(R.id.status_icon,R.color.discard);
-                } else if(obj.Freshness() > 1){
-                    System.out.println("Fresh");
-                    holder.setImageResource(R.id.status_icon,R.color.fresh);
-                } else{
-                    System.out.println("Urgent");
-                    System.out.println(obj.Freshness());
-                    holder.setImageResource(R.id.status_icon,R.color.urgent);
-                }
                 holder.setText(R.id.txt_icon, obj.getName());
             }
         };
@@ -123,7 +114,6 @@ public class MainActivity extends AppCompatActivity {
 
     /**
      * Called when the user taps the Modify button
-     *
      * @param view
      * @author SoJung
      */
@@ -132,18 +122,23 @@ public class MainActivity extends AppCompatActivity {
             System.out.println("item not selected");
         }
         System.out.println("item position selected in main: " + String.valueOf(modify));
-
         Intent intent = new Intent(this, Modify.class);
         intent.putExtra("position",modify);
         startActivity(intent);
     }
 
+    /**
+     * When on pause,save
+     */
     @Override
     protected void onPause() {
         super.onPause();
         save();
     }
 
+    /**
+     * Save items into storage
+     */
     public void save(){
         try {
             File file = getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS);
@@ -163,6 +158,9 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * restore items from storage
+     */
     public void restore(){
         try {
             File file = getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS);
@@ -185,45 +183,21 @@ public class MainActivity extends AppCompatActivity {
 
 
     /**
-     * TODO: this is for now only for names, further implement in item class or add more sort.
+     * default sort based on name
      * api 24 min
      */
-    @TargetApi(24)
     public void sort(View view) {
-        //mData.sort((o1,o2) -> o1.getName().compareTo(o2.getName()));
         Collections.sort(mData, new Comparator<Item>() {
             @Override
             public int compare(Item o1, Item o2) {
                 return o1.getName().compareTo(o2.getName());
             }
         });
-        GridView grid_photo = (GridView) findViewById(R.id.grid_photo);
-        final BaseAdapter mAdapter = new MyAdapter<Item>(mData, R.layout.item_grid) {
-            @Override
-            public void bindView(ViewHolder holder, Item obj) {
-
-                View i = holder.getItemView();
-                if(obj.Freshness() < 0){
-                    System.out.println("Discard");
-                    holder.setImageResource(R.id.status_icon,R.color.discard);
-                } else if(obj.Freshness() > 1){
-                    System.out.println("Fresh");
-                    holder.setImageResource(R.id.status_icon,R.color.fresh);
-                } else{
-                    System.out.println("Urgent");
-                    System.out.println(obj.Freshness());
-                    holder.setImageResource(R.id.status_icon,R.color.urgent);
-                }
-                holder.setText(R.id.txt_icon, obj.getName());
-            }
-        };
-
-        grid_photo.setAdapter(mAdapter);
+        render();
     }
 
     /**
-     *
-     *
+     *Sort items based on purchase date
      */
     public void sortBuyDate(View view) {
         Collections.sort(mData, new Comparator<Item>() {
@@ -232,27 +206,7 @@ public class MainActivity extends AppCompatActivity {
                 return o1.getBuyDate().isAfter(o2.getBuyDate()) ? 1 : -1;
             }
         });
-        GridView grid_photo = (GridView) findViewById(R.id.grid_photo);
-        final BaseAdapter mAdapter = new MyAdapter<Item>(mData, R.layout.item_grid) {
-            @Override
-            public void bindView(ViewHolder holder, Item obj) {
-                View i = holder.getItemView();
-                if(obj.Freshness() < 0){
-                    System.out.println("Discard");
-                    holder.setImageResource(R.id.status_icon,R.color.discard);
-                } else if(obj.Freshness() > 1){
-                    System.out.println("Fresh");
-                    holder.setImageResource(R.id.status_icon,R.color.fresh);
-                } else{
-                    System.out.println("Urgent");
-                    System.out.println(obj.Freshness());
-                    holder.setImageResource(R.id.status_icon,R.color.urgent);
-                }
-                holder.setText(R.id.txt_icon, obj.getName());
-            }
-        };
-
-        grid_photo.setAdapter(mAdapter);
+        render();
     }
 
     /**
@@ -270,31 +224,11 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
-        GridView grid_photo = (GridView) findViewById(R.id.grid_photo);
-        final BaseAdapter mAdapter = new MyAdapter<Item>(mData, R.layout.item_grid) {
-            @Override
-            public void bindView(ViewHolder holder, Item obj) {
-                View i = holder.getItemView();
-                if(obj.Freshness() < 0){
-                    System.out.println("Discard");
-                    holder.setImageResource(R.id.status_icon,R.color.discard);
-                } else if(obj.Freshness() > 1){
-                    System.out.println("Fresh");
-                    holder.setImageResource(R.id.status_icon,R.color.fresh);
-                } else{
-                    System.out.println("Urgent");
-                    System.out.println(obj.Freshness());
-                    holder.setImageResource(R.id.status_icon,R.color.urgent);
-                }
-                holder.setText(R.id.txt_icon, obj.getName());
-            }
-        };
-
-        grid_photo.setAdapter(mAdapter);
+        render();
     }
 
     /**
-     *
+     * sort items based on freshness
      *
      */
     public void sortFreshness(View view) {
@@ -308,23 +242,18 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
+        render();
+    }
+
+    /**
+     * render grid
+     */
+    public void render(){
         GridView grid_photo = (GridView) findViewById(R.id.grid_photo);
-        final BaseAdapter mAdapter = new MyAdapter<Item>(mData, R.layout.item_grid) {
+        final BaseAdapter mAdapter = new MyAdapter<Item>(mData, R.layout.item_grid)
+        {
             @Override
             public void bindView(ViewHolder holder, Item obj) {
-                View i = holder.getItemView();
-                if(obj.Freshness() < 0){
-                    System.out.println("Discard");
-                    holder.setImageResource(R.id.status_icon,R.color.discard);
-                } else if(obj.Freshness() > 1){
-                    System.out.println("Fresh");
-                    holder.setImageResource(R.id.status_icon,R.color.fresh);
-                } else{
-                    System.out.println("Urgent");
-                    System.out.println(obj.Freshness());
-                    holder.setImageResource(R.id.status_icon,R.color.urgent);
-                }
-                holder.setText(R.id.txt_icon, obj.getName());
             }
         };
 

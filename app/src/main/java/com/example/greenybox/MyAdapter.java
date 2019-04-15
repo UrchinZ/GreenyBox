@@ -59,7 +59,7 @@ public abstract class MyAdapter<T> extends BaseAdapter {
         View tmp = holder.getItemView();
 
         //another code block that can set the background status
-        /*
+
         //We know T is for sure Item
         final T item = mData.get(position);
         Item i = (Item)item;
@@ -75,7 +75,8 @@ public abstract class MyAdapter<T> extends BaseAdapter {
         } else {
             status.setBackgroundResource(R.color.urgent);
         }
-        */
+
+        holder.setText(R.id.txt_icon, i.getName());
         return tmp;
     }
 

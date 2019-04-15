@@ -36,9 +36,9 @@
         android:layout_marginStart="16dp"
         android:layout_marginLeft="16dp"
         android:layout_marginTop="16dp"
+        android:background="@drawable/rect_btn_green"
         android:onClick="goToSetting"
         android:text="@string/setting_btn"
-        android:background="@drawable/rect_btn"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -59,11 +59,10 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="152dp"
         android:layout_marginLeft="152dp"
-        android:layout_marginBottom="64dp"
         android:onClick="sortBuyDate"
         android:text="@string/SortBuyDate"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/grid_photo" />
 
     <Button
         android:id="@+id/sortExpDate"
@@ -71,7 +70,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="152dp"
         android:layout_marginLeft="152dp"
-        android:layout_marginBottom="20dp"
+        android:layout_marginBottom="16dp"
         android:onClick="sortExpDate"
         android:text="@string/SortExpDate"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -83,7 +82,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="15dp"
         android:layout_marginLeft="15dp"
-        android:layout_marginBottom="17dp"
+        android:layout_marginBottom="16dp"
         android:onClick="sortFreshness"
         android:text="@string/SortFreshness"
         app:layout_constraintBottom_toBottomOf="parent"
