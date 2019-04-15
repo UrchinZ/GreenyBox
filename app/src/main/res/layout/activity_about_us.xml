@@ -8,44 +8,51 @@
 
     <ImageView
         android:id="@+id/appLogo"
-        android:layout_width="165dp"
-        android:layout_height="153dp"
+        android:layout_width="241dp"
+        android:layout_height="204dp"
         android:layout_marginStart="137dp"
         android:layout_marginLeft="137dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="32dp"
         android:layout_marginEnd="138dp"
         android:layout_marginRight="138dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/introUs"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@android:drawable/btn_star_big_on" />
+        app:layout_constraintVertical_bias="0.083"
+        app:srcCompat="@mipmap/greenybox" />
 
     <TextView
         android:id="@+id/introUs"
-        android:layout_width="383dp"
-        android:layout_height="255dp"
+        android:layout_width="384dp"
+        android:layout_height="293dp"
         android:layout_marginStart="16dp"
         android:layout_marginLeft="16dp"
-        android:layout_marginTop="40dp"
         android:layout_marginEnd="12dp"
         android:layout_marginRight="12dp"
+        android:gravity="center"
         android:textSize="16sp"
+        app:layout_constraintBottom_toTopOf="@+id/copyBtn"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/appLogo" />
+        app:layout_constraintStart_toStartOf="parent" />
 
-    <TextView
-        android:id="@+id/contactInfo"
-        android:layout_width="313dp"
-        android:layout_height="153dp"
-        android:layout_marginStart="49dp"
-        android:layout_marginLeft="49dp"
-        android:layout_marginEnd="49dp"
-        android:layout_marginRight="49dp"
-        android:layout_marginBottom="59dp"
-        android:textSize="16sp"
+    <Button
+        android:id="@+id/copyBtn"
+        android:layout_width="195dp"
+        android:layout_height="68dp"
+        android:layout_marginStart="161dp"
+        android:layout_marginLeft="161dp"
+        android:layout_marginEnd="162dp"
+        android:layout_marginRight="162dp"
+        android:layout_marginBottom="28dp"
+        android:background="@drawable/rect_btn"
+        android:text="Copy the link to the GreenyBox GitHub"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent" />
+
 </android.support.constraint.ConstraintLayout>
