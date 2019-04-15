@@ -299,6 +299,12 @@ public class AddItem extends AppCompatActivity {
             text = "Please put in a proper purchase date";
             field_check = false;
         }
+
+        if (i.getExpDate() == null){
+            text = "Preservation days set to 5, Please adjust later";
+            i.resolve(5);
+            field_check = true;
+        }
         //display proper message
         Toast toast = Toast.makeText(context, text, duration);
         toast.show();
