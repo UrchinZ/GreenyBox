@@ -12,8 +12,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
-import android.widget.GridView;
 import android.widget.Button;
+import android.widget.GridView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
@@ -37,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
     public ArrayList<Item> mData;
     static MainActivity mActivity;
     private static final String TAG = "MainActivity";
-    //private int sortID = 0;
+    private int sortID = 0;
     public int modify = -1;
 
     @Override
@@ -181,13 +181,28 @@ public class MainActivity extends AppCompatActivity {
      */
     @TargetApi(24)
     public void sort(View view) {
+        Button sortButton = (Button)findViewById(R.id.sortBtn);
         //mData.sort((o1,o2) -> o1.getName().compareTo(o2.getName()));
         Collections.sort(mData, new Comparator<Item>() {
             @Override
             public int compare(Item o1, Item o2) {
-                return o1.getName().compareTo(o2.getName());
+                if (sortID == 0) {
+                    sortButton.setText("Sort: Name");
+                    return o1.getName().compareTo(o2.getName());
+                } else if (sortID == 1) {
+                    sortButton.setText("Sort: Buy Date");
+                    return o1.getBuyDate().isAfter(o2.getBuyDate()) ? 1 : -1;
+                } else if (sortID == 2) {
+                    sortButton.setText("Sort: Exp Date");
+                    return o1.getExpDate().isAfter(o2.getExpDate()) ? 1 : -1;
+                } else {
+                    sortButton.setText("Sort: Freshness");
+                    return o1.Freshness() >= o2.Freshness() ? 1 : -1;
+                }
             }
         });
+        sortID += 1;
+        if (sortID == 4) sortID = 0;
         GridView grid_photo = (GridView) findViewById(R.id.grid_photo);
         final BaseAdapter mAdapter = new MyAdapter<Item>(mData, R.layout.item_grid) {
             @Override
