@@ -11,15 +11,17 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
+
 public abstract class MyAdapter<T> extends BaseAdapter {
 
     private ArrayList<T> mData;
     private int mLayoutRes;
 
-
-    public MyAdapter() {
-    }
-
+    /**
+     * Constructor
+     * @param mData
+     * @param mLayoutRes
+     */
     public MyAdapter(ArrayList<T> mData, int mLayoutRes) {
         this.mData = mData;
         this.mLayoutRes = mLayoutRes;
@@ -40,75 +42,46 @@ public abstract class MyAdapter<T> extends BaseAdapter {
         return position;
     }
 
+    /**
+     * Construct proper subview for the item
+     * @param position
+     * @param convertView
+     * @param parent
+     * @return subview of the item
+     */
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         ViewHolder holder = ViewHolder.bind(parent.getContext(), convertView, parent, mLayoutRes
                 , position);
         bindView(holder, getItem(position));
-        return holder.getItemView();
+
+        //temporary subview
+        View tmp = holder.getItemView();
+
+        //another code block that can set the background status
+        /*
+        //We know T is for sure Item
+        final T item = mData.get(position);
+        Item i = (Item)item;
+        int fresh = i.Freshness();
+
+        //grab image view
+        ImageView status = (ImageView)tmp.findViewById((R.id.status_icon));
+        //set background status color
+        if(fresh < 0){
+            status.setBackgroundResource(R.color.discard);
+        } else if (fresh > 1){
+            status.setBackgroundResource(R.color.fresh);
+        } else {
+            status.setBackgroundResource(R.color.urgent);
+        }
+        */
+        return tmp;
     }
 
     public abstract void bindView(ViewHolder holder, T obj);
 
 
-    /**
-     * @param data
-     */
-    public void add(T data) {
-        if (mData == null) {
-            mData = new ArrayList<>();
-        }
-        mData.add(data);
-        notifyDataSetChanged();
-    }
-
-
-    /**
-     * @param position
-     * @param data
-     */
-    public void add(int position, T data) {
-        if (mData == null) {
-            mData = new ArrayList<>();
-        }
-        mData.add(position, data);
-        notifyDataSetChanged();
-    }
-
-    /**
-     * @param data
-     */
-    public void remove(T data) {
-        if (mData != null) {
-            mData.remove(data);
-        }
-        notifyDataSetChanged();
-    }
-
-    /**
-     * @param position
-     */
-    public void remove(int position) {
-        if (mData != null) {
-            mData.remove(position);
-        }
-        notifyDataSetChanged();
-    }
-
-    /**
-     *
-     */
-    public void clear() {
-        if (mData != null) {
-            mData.clear();
-        }
-        notifyDataSetChanged();
-    }
-
-
-    /**
-     *
-     */
     public static class ViewHolder {
 
         private SparseArray<View> mViews;   //Store ListView item's View
