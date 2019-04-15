@@ -16,8 +16,6 @@ import android.widget.GridView;
 import android.widget.Button;
 import android.widget.Toast;
 
-import com.google.gson.Gson;
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
