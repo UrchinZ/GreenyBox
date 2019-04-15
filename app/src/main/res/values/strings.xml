@@ -6,8 +6,8 @@
     <string name="save_btn">Save</string>
     <string name="delete_btn">Delete</string>
     <string name="modify">Modify</string>
-    <string name="sort">Sort</string>
-    <string name="sortBuyDate">SortBuyDate</string>
-    <string name="sortExpDate">SortExpDate</string>
-    <string name="sortFreshness">SortFreshness</string>
+    <string name="SortName">Sort Name</string>
+    <string name="SortBuyDate">Sort Buy Date</string>
+    <string name="SortExpDate">Sort Exp Date</string>
+    <string name="SortFreshness">Sort Freshness</string>
 </resources>

@@ -48,7 +48,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginLeft="16dp"
         android:onClick="sort"
-        android:text="@string/sort"
+        android:text="@string/SortName"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/grid_photo" />
 
@@ -56,23 +56,23 @@
         android:id="@+id/sortBuyDate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="9dp"
-        android:layout_marginLeft="9dp"
-        android:layout_marginBottom="68dp"
+        android:layout_marginStart="152dp"
+        android:layout_marginLeft="152dp"
+        android:layout_marginBottom="64dp"
         android:onClick="sortBuyDate"
-        android:text="@string/sortBuyDate"
+        android:text="@string/SortBuyDate"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/sortBtn" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/sortExpDate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="113dp"
-        android:layout_marginLeft="113dp"
-        android:layout_marginBottom="17dp"
+        android:layout_marginStart="152dp"
+        android:layout_marginLeft="152dp"
+        android:layout_marginBottom="20dp"
         android:onClick="sortExpDate"
-        android:text="@string/sortExpDate"
+        android:text="@string/SortExpDate"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -84,7 +84,7 @@
         android:layout_marginLeft="15dp"
         android:layout_marginBottom="17dp"
         android:onClick="sortFreshness"
-        android:text="@string/sortFreshness"
+        android:text="@string/SortFreshness"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
