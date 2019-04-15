@@ -61,6 +61,7 @@ public class MainActivity extends AppCompatActivity {
                     holder.setImageResource(R.id.status_icon,R.color.fresh);
                 } else{
                     System.out.println("Urgent");
+                    System.out.println(obj.Freshness());
                     holder.setImageResource(R.id.status_icon,R.color.urgent);
                 }
                 holder.setText(R.id.txt_icon, obj.getName());
