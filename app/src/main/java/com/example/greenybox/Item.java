@@ -21,6 +21,7 @@ public class Item implements Serializable {
     private String imgPath; //TODO: Include this field
     private double id;
 
+
     //Constructor
     //THIS CONSTRUCTOR is used in main activity
     /*public Item(String n, String i){
