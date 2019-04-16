@@ -36,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
     static MainActivity mActivity;
     private static final String TAG = "MainActivity";
     public int modify = -1;
+    private static boolean sortNameCounter, sortBuyDateCounter, sortExpDateCounter, sortFreshnessCounter;
 
     /**
      * Activities that start when page is initiated
@@ -190,9 +191,14 @@ public class MainActivity extends AppCompatActivity {
         Collections.sort(mData, new Comparator<Item>() {
             @Override
             public int compare(Item o1, Item o2) {
-                return o1.getName().compareTo(o2.getName());
+                if (sortNameCounter) {
+                    return o1.getName().compareTo(o2.getName());
+                } else {
+                    return o2.getName().compareTo(o1.getName());
+                }
             }
         });
+        sortNameCounter = sortNameCounter ? false : true;
         render();
     }
 
@@ -203,9 +209,14 @@ public class MainActivity extends AppCompatActivity {
         Collections.sort(mData, new Comparator<Item>() {
             @Override
             public int compare(Item o1, Item o2) {
-                return o1.getBuyDate().isAfter(o2.getBuyDate()) ? 1 : -1;
+                if (sortBuyDateCounter) {
+                    return o1.getBuyDate().isAfter(o2.getBuyDate()) ? 1 : -1;
+                } else {
+                    return o2.getBuyDate().isAfter(o1.getBuyDate()) ? 1 : -1;
+                }
             }
         });
+        sortBuyDateCounter = sortBuyDateCounter ? false : true;
         render();
     }
 
@@ -217,13 +228,14 @@ public class MainActivity extends AppCompatActivity {
         Collections.sort(mData, new Comparator<Item>() {
             @Override
             public int compare(Item o1, Item o2) {
-                if (o1.getExpDate().isAfter(o2.getExpDate())) {
-                    return 1;
+                if (sortExpDateCounter) {
+                    return o1.getExpDate().isAfter(o2.getExpDate()) ? 1 : -1;
                 } else {
-                    return -1;
+                    return o2.getExpDate().isAfter(o1.getExpDate()) ? 1 : -1;
                 }
             }
         });
+        sortExpDateCounter = sortExpDateCounter ? false : true;
         render();
     }
 
@@ -235,13 +247,14 @@ public class MainActivity extends AppCompatActivity {
         Collections.sort(mData, new Comparator<Item>() {
             @Override
             public int compare(Item o1, Item o2) {
-                if (o1.Freshness() >= o2.Freshness()) {
-                    return 1;
+                if (sortFreshnessCounter) {
+                    return (o1.Freshness() >= o2.Freshness()) ? 1 : -1;
                 } else {
-                    return -1;
+                    return (o2.Freshness() >= o1.Freshness()) ? 1 : -1;
                 }
             }
         });
+        sortFreshnessCounter = sortFreshnessCounter ? false : true;
         render();
     }
 
