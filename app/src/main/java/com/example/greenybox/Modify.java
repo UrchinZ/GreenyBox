@@ -40,16 +40,25 @@ public class Modify extends AppCompatActivity {
     private EditText itemName; //Item Name
 
 
+    //Image function variables
     private final String TAG = getClass().getSimpleName();
     private ImageView mPicture;
     private static final int CHOOSE_PHOTO = 385;
 
     private LocalDate today = new LocalDate();
 
+    /**
+     * page creation actions
+     * @param savedInstanceState
+     * @assignee Judy
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        //initiate layout
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_modify);
+
+        //get position information from intent
         Intent intent = getIntent();
         position = intent.getIntExtra("position",-1);
         System.out.println("inside modify, position: " + String.valueOf(position));
@@ -225,56 +234,39 @@ public class Modify extends AppCompatActivity {
         });
     }
 
+    /**
+     * Save actions
+     * same as main
+     * @param view
+     */
     public void onSaveButtonClicked(View view){
-        try {
-            File file = getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS);
-            Log.d(TAG, "save: "+file.getAbsolutePath());
-            Log.d(TAG, "save: "+i.getName());
-            FileOutputStream fileOutputStream = new FileOutputStream(file.getAbsolutePath()+"/items");
-            ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
-            MainActivity.getInstance().mData.set(position,i);
-            objectOutputStream.writeObject(MainActivity.getInstance().mData);
-
-            objectOutputStream.close();
-            fileOutputStream.close();
-
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        MainActivity.getInstance().save();
         done(view);
     }
 
+    /**
+     * Sequence of actions associated to "Done" button
+     * @param view
+     */
     public void done(View view){
         Intent intent = new Intent(this,MainActivity.class);
         finish();
         startActivity(intent);
     }
 
+    /**
+     * Delete actions, same as main
+     * @param view
+     */
     public void onDeleteButtonClicked(View view){
-        try {
-            File file = getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS);
-            Log.d(TAG, "save: "+file.getAbsolutePath());
-            Log.d(TAG, "save: "+i.getName());
-            FileOutputStream fileOutputStream = new FileOutputStream(file.getAbsolutePath()+"/items");
-            ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
-            MainActivity.getInstance().mData.remove(position);
-            objectOutputStream.writeObject(MainActivity.getInstance().mData);
-
-            objectOutputStream.close();
-            fileOutputStream.close();
-
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        MainActivity.getInstance().mData.remove(position);
+        MainActivity.getInstance().save();
         done(view);
     }
 
     /**
      * Update all text fields based on item information
+     * @assignee: Judy
      */
     private void itemUpdate(){
         if (i.getCount() > 0){

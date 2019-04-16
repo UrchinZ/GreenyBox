@@ -32,6 +32,7 @@ import static android.preference.PreferenceManager.getDefaultSharedPreferences;
 public class MainActivity extends AppCompatActivity {
 
     private Context mContext;
+    private GridView gridPhoto;
     public ArrayList<Item> mData;
     static MainActivity mActivity;
     private static final String TAG = "MainActivity";
@@ -48,33 +49,20 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         mActivity = this;
         mContext = MainActivity.this;
-        GridView grid_photo = (GridView) findViewById(R.id.grid_photo);
+        gridPhoto = (GridView) findViewById(R.id.grid_photo);
 
         mData = new ArrayList<Item>();
         restore();
-
-        final BaseAdapter mAdapter = new MyAdapter<Item>(mData, R.layout.item_grid) {
-            @Override
-            public void bindView(ViewHolder holder, Item obj) {
-                holder.setText(R.id.txt_icon, obj.getName());
-            }
-        };
-
-        grid_photo.setAdapter(mAdapter);
-
+        render();
 
         //add new click listener to grid photo
-        grid_photo.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        gridPhoto.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 // Set img maybe jump some where
                 // setImageResource(R.id.img_icon, obj.getiId());
-                // TODO: THIS IS WHERE MODIFY SHOULD HAPPEND
-                //Toast.makeText(mContext, "Clicked" + position + ":", Toast.LENGTH_SHORT).show();
-                //mData.remove(position);
-                //Intent intent = getIntent();
-                //finish();
-                //startActivity(intent);
+                // THIS IS WHERE MODIFY SHOULD HAPPEND
+                Toast.makeText(mContext, "Modify item in position " + position, Toast.LENGTH_SHORT).show();
                 modify = position;
                 System.out.println("inside main: set position to " + String.valueOf(modify));
                 goToModify(view);
@@ -84,7 +72,7 @@ public class MainActivity extends AppCompatActivity {
 
     /**
      * Dashboard instance.
-     * @return
+     * @return instance of this
      */
     public static MainActivity getInstance(){
         return mActivity;
@@ -92,9 +80,8 @@ public class MainActivity extends AppCompatActivity {
 
     /**
      * Called when the user taps the Setting button
-     *
      * @param view
-     * @author Judy
+     * @assignee Judy
      */
     public void goToSetting(View view) {
         // Do something in response to button
@@ -104,8 +91,8 @@ public class MainActivity extends AppCompatActivity {
 
     /**
      * Called when the user taps the Add button
-     *
      * @param view
+     * @assignee Judy
      */
     public void goToAdd(View view) {
         // Do something in response to button
@@ -116,7 +103,7 @@ public class MainActivity extends AppCompatActivity {
     /**
      * Called when the user taps the Modify button
      * @param view
-     * @author SoJung
+     * @assignee SoJung
      */
     public void goToModify(View view) {
         if (modify == -1){
@@ -130,6 +117,7 @@ public class MainActivity extends AppCompatActivity {
 
     /**
      * When on pause,save
+     * @assignee HZ
      */
     @Override
     protected void onPause() {
@@ -139,6 +127,7 @@ public class MainActivity extends AppCompatActivity {
 
     /**
      * Save items into storage
+     * Assignee Hz
      */
     public void save(){
         try {
@@ -161,6 +150,7 @@ public class MainActivity extends AppCompatActivity {
 
     /**
      * restore items from storage
+     * @assignee HZ
      */
     public void restore(){
         try {
@@ -185,7 +175,7 @@ public class MainActivity extends AppCompatActivity {
 
     /**
      * default sort based on name
-     * api 24 min
+     * @assignee Judy
      */
     public void sort(View view) {
         Collections.sort(mData, new Comparator<Item>() {
@@ -201,7 +191,7 @@ public class MainActivity extends AppCompatActivity {
         sortNameCounter = sortNameCounter ? false : true;
         render();
     }
-
+    //=====================Assignee: CJ ==================
     /**
      *Sort items based on purchase date
      */
@@ -259,10 +249,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * render grid
+     * render grid on dashboard
+     * @assignee: Judy
      */
     public void render(){
-        GridView grid_photo = (GridView) findViewById(R.id.grid_photo);
         final BaseAdapter mAdapter = new MyAdapter<Item>(mData, R.layout.item_grid)
         {
             @Override
@@ -270,6 +260,6 @@ public class MainActivity extends AppCompatActivity {
             }
         };
 
-        grid_photo.setAdapter(mAdapter);
+        gridPhoto.setAdapter(mAdapter);
     }
 }

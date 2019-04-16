@@ -11,7 +11,11 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-
+/**
+ * Adapter class is used in grid view in dashboard
+ * assignee: HZ, Judy
+ * @param <T>
+ */
 public abstract class MyAdapter<T> extends BaseAdapter {
 
     private ArrayList<T> mData;
@@ -122,7 +126,7 @@ public abstract class MyAdapter<T> extends BaseAdapter {
         /**
          * @param id
          * @param <T>
-         * @return
+         * @return the object
          */
         @SuppressWarnings("unchecked")
         public <T extends View> T getView(int id) {
@@ -135,7 +139,7 @@ public abstract class MyAdapter<T> extends BaseAdapter {
         }
 
         /**
-         * @return
+         * @return item
          */
         public View getItemView() {
             return item;

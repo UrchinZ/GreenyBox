@@ -12,17 +12,13 @@ public class Setting extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_setting);
     }
-
-    // add more functions
-
     /**
      * Called when the user taps the About Team Eleven-Seven button
      *
      * @param view
-     * @author SoJung
+     * @assignee SoJung
      */
     public void goToAboutUs(View view) {
-        // Do something in response to button
         Intent intent = new Intent(this, AboutUs.class);
         startActivity(intent);
     }

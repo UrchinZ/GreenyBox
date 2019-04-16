@@ -18,16 +18,8 @@ public class Item implements Serializable {
     private int count;
     private LocalDate buyDate;
     private LocalDate expDate;
-    private String imgPath; //TODO: Include this field
-    private double id;
+    private String imgPath;
 
-
-    //Constructor
-    //THIS CONSTRUCTOR is used in main activity
-    /*public Item(String n, String i){
-        this.name = n;
-        this.imgPath = i;
-    }*/
 
     /**
      * empty constructor
@@ -108,7 +100,6 @@ public class Item implements Serializable {
 
 
     //Modifiers
-
     /**
      * set name
      * @param n string of name
@@ -194,12 +185,10 @@ public class Item implements Serializable {
         setExpDate(expYear,expMonth,expDay);
     }
 
-    // Add page, resolve conflict - Judy
-    // merge add page with item class - Judy
-
     /**
      * calculates difference between buyDate and expDate
      * @return int preserve days
+     *  @assignee: Judy
      */
     public int preserve(){
         if(buyDate == null || expDate == null){
@@ -212,7 +201,8 @@ public class Item implements Serializable {
      * checks if there is conflict between user input days to preserv
      * and current preserve days
      * @param preserveDays days to preserve set based on user input
-     * @return
+     * @return boolean if there's conflict
+     * @assignee: Judy
      */
     public boolean conflict(int preserveDays){
         return preserveDays != preserve();
@@ -222,6 +212,7 @@ public class Item implements Serializable {
      * resolve conflict between preserve days and
      * buyDate and expDate
      * @param preserveDays days to preserve set based on user input
+     * @assignee: Judy
      */
     public void resolve(int preserveDays){
         //return if no conflict

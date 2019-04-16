@@ -1,12 +1,10 @@
 package com.example.greenybox;
 
-import android.Manifest;
 import android.annotation.TargetApi;
 import android.app.DatePickerDialog;
 import android.content.ContentUris;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
@@ -21,36 +19,27 @@ import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import com.google.gson.Gson;
-
 import org.joda.time.LocalDate;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
-import java.util.concurrent.TimeUnit;
 
-
+/**
+ * Java functions for AddItem activity
+ */
 public class AddItem extends AppCompatActivity {
 
     private TextView pDate; //purchase date text-box
@@ -67,9 +56,14 @@ public class AddItem extends AppCompatActivity {
     private ImageView mPicture;
     private static final int CHOOSE_PHOTO = 385;
 
-    private Item i = new Item();;
-    private LocalDate today = new LocalDate();
+    private Item i = new Item(); //initiate a new item
+    private LocalDate today = new LocalDate();  //today's date object
 
+    /**
+     * Create page function
+     * @param savedInstanceState
+     * @assignee: Judy
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         //show layout
@@ -82,7 +76,6 @@ public class AddItem extends AppCompatActivity {
         pDate = findViewById(R.id.purchaseDate);
         eDate = findViewById(R.id.expirationDate);
         pDays = findViewById(R.id.preserveDay);
-
 
         //Item name on change response
         itemName.setOnEditorActionListener(new TextView.OnEditorActionListener() {
@@ -261,6 +254,7 @@ public class AddItem extends AppCompatActivity {
 
     /**
      * Update all text fields based on item information
+     * @assignee: Judy
      */
     private void itemUpdate(){
         if (i.getCount() > 0){
@@ -283,6 +277,7 @@ public class AddItem extends AppCompatActivity {
     /**
      * save button function
      * @param view
+     * @assignee: Judy
      */
     public void onButtonClicked(View view) {
         Context context = getApplicationContext();
@@ -311,7 +306,8 @@ public class AddItem extends AppCompatActivity {
 
         //save item information only if required fields are met
         if (field_check == true){
-            save();
+            MainActivity.getInstance().mData.add(i);
+            MainActivity.getInstance().save();
         } else {
             return;
         }
@@ -322,38 +318,17 @@ public class AddItem extends AppCompatActivity {
         startActivity(intent);
     }
 
-    /**
-     * save to file
-     */
-    public void save(){
-        try {
-            File file = getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS);
-            Log.d(TAG, "save: "+file.getAbsolutePath());
-            Log.d(TAG, "save: "+i.getName());
-            FileOutputStream fileOutputStream = new FileOutputStream(file.getAbsolutePath()+"/items");
-            ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
-            MainActivity.getInstance().mData.add(i);
-            objectOutputStream.writeObject(MainActivity.getInstance().mData);
 
-            objectOutputStream.close();
-            fileOutputStream.close();
-
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
+    /*==============IMAGE RELATED FUNCTIONS: Assignee: HZ==================*/
     /**
      * Create Intent to open imageView.
      */
-    /*private void openAlbum() {
+    private void openAlbum() {
         System.out.println("inside openAlbum");
         Intent openAlbumIntent = new Intent(Intent.ACTION_GET_CONTENT);
         openAlbumIntent.setType("image/*");
         startActivityForResult(openAlbumIntent, CHOOSE_PHOTO);
-    }*/
+    }
 
     /**
      * Get Permission Request Results.
@@ -361,7 +336,7 @@ public class AddItem extends AppCompatActivity {
      * @param permissions
      * @param grantResults
      */
-    /*@Override
+    @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
@@ -370,7 +345,7 @@ public class AddItem extends AppCompatActivity {
             Log.i(TAG, "onRequestPermissionsResult: permission denied");
             Toast.makeText(this, "You Denied Permission", Toast.LENGTH_SHORT).show();
         }
-    }*/
+    }
 
     /**
      * Get Image Activity data.
@@ -378,7 +353,7 @@ public class AddItem extends AppCompatActivity {
      * @param resultCode
      * @param data
      */
-    /*@Override
+    @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         switch (requestCode) {
             case CHOOSE_PHOTO:
@@ -397,23 +372,23 @@ public class AddItem extends AppCompatActivity {
             default:
                 break;
         }
-    }*/
+    }
 
     /**
      * Get data image path. (Standard)
      * @param data
      */
-    /*private void handleImageBeforeKitKat(Intent data) {
+    private void handleImageBeforeKitKat(Intent data) {
         Uri uri = data.getData();
         String imagePath = getImagePath(uri, null);
         displayImage(imagePath);
-    }*/
+    }
 
     /**
      * Get data image path. (version compatible)
      * @param data
      */
-    /*@TargetApi(19)
+    @TargetApi(19)
     private void handleImageOnKitKat(Intent data) {
         String imagePath = null;
         Uri uri = data.getData();
@@ -433,20 +408,20 @@ public class AddItem extends AppCompatActivity {
             imagePath = uri.getPath();
         }
         displayImage(imagePath);
-    }*/
+    }
 
     /**
      * Display Image.
      * @param imagePath
      */
-    /*private void displayImage(String imagePath) {
+    private void displayImage(String imagePath) {
         if (imagePath != null) {
             Bitmap bitmap = BitmapFactory.decodeFile(imagePath);
             mPicture.setImageBitmap(bitmap);
         } else {
             Toast.makeText(this, "failed to get image", Toast.LENGTH_SHORT).show();
         }
-    }*/
+    }
 
 
     /**
@@ -455,7 +430,7 @@ public class AddItem extends AppCompatActivity {
      * @param selection
      * @return
      */
-    /*private String getImagePath(Uri uri, String selection) {
+    private String getImagePath(Uri uri, String selection) {
         String path = null;
         Cursor cursor = getContentResolver().query(uri, null, selection, null, null);
         if (cursor != null) {
@@ -465,5 +440,5 @@ public class AddItem extends AppCompatActivity {
             cursor.close();
         }
         return path;
-    }*/
+    }
 }
