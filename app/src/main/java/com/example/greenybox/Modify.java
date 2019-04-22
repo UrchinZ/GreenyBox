@@ -17,6 +17,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.joda.time.LocalDate;
 
@@ -108,7 +109,41 @@ public class Modify extends AppCompatActivity {
                 return false;
             }
         });
+        //change purchase date
+        pDateSetListener = new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                System.out.println("inside modify purchase date: ");
+                System.out.println("today :"+ today.toString());
+                month = month+1;
+                LocalDate pDateInstance = new LocalDate(year,month,dayOfMonth);
 
+                //logic to prevent user from selecting future date
+                if(pDateInstance.isAfter(today)){
+                    System.out.println("new pdate: " + pDateInstance.toString());
+                    System.out.println("today :"+ today.toString());
+                    Toast.makeText(getApplicationContext(),"Please, no purchase in the future" , Toast.LENGTH_SHORT).show();
+                    return;
+                } else {
+                    System.out.println("this is correct, proceed");
+                }
+
+                //display date
+                String date = "Purchase Date: " + pDateInstance.toString();
+                System.out.println(date);
+                pDate.setText(date);
+
+                //change item field
+                i.setBuyDate(pDateInstance);
+
+                //resolve potential conflict
+                if(pDays.getText().length()>0){
+                    i.resolve(Integer.parseInt(pDays.getText().toString()));
+                    itemUpdate();
+                }
+
+            }
+        };
         //Purchase date response
         pDate.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -129,34 +164,7 @@ public class Modify extends AppCompatActivity {
             }
         });
 
-        //change purchase date
-        pDateSetListener = new DatePickerDialog.OnDateSetListener() {
-            @Override
-            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                month = month+1;
-                LocalDate pDateInstance = new LocalDate(year,month,dayOfMonth);
 
-                //logic to prevent user from selecting future date
-                if(pDateInstance.isAfter(today)){
-                    pDate.setHint("Purchased in the future?");
-                    return;
-                }
-
-                //display date
-                String date = "Purchase Date: " + pDateInstance.toString();
-                pDate.setText(date);
-
-                //change item field
-                i.setBuyDate(pDateInstance);
-
-                //resolve potential conflict
-                if(pDays.getText().length()>0){
-                    i.resolve(Integer.parseInt(pDays.getText().toString()));
-                    itemUpdate();
-                }
-
-            }
-        };
 
 
         //expiration date response
@@ -189,7 +197,8 @@ public class Modify extends AppCompatActivity {
 
                 //logic to prevent user from selecting a date after today's and purchase date
                 if (today.isAfter(eDateInstance)){
-                    eDate.setHint("Please throw item out");
+
+                    Toast.makeText(getApplicationContext()," Please just throw out the food?" , Toast.LENGTH_SHORT).show();
                     return;
                 }
 
