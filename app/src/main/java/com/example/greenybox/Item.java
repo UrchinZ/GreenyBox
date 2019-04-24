@@ -89,14 +89,6 @@ public class Item implements Serializable {
     public int Freshness(){
         LocalDate today = new LocalDate();
         int freshness = Days.daysBetween(today,expDate).getDays();
-        /*
-        int freshness = 2;
-        if (diff < 0) {
-            freshness = -1;
-        } else if (diff == 0 || diff == 1){
-            freshness = 1;
-        }
-        */
         return freshness;
     }
 
