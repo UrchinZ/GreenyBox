@@ -37,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
     static MainActivity mActivity;
     private static final String TAG = "MainActivity";
     public int modify = -1;
-    private static boolean sortNameCounter, sortBuyDateCounter, sortExpDateCounter, sortFreshnessCounter;
+    private static boolean sortNameCounter, sortBuyDateCounter, sortExpDateCounter, sortFreshnessCounter = true;
 
     /**
      * Activities that start when page is initiated
@@ -189,6 +189,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         sortNameCounter = sortNameCounter ? false : true;
+        sortBuyDateCounter = sortExpDateCounter = sortFreshnessCounter = true;
         render();
     }
     //=====================Assignee: CJ ==================
@@ -207,6 +208,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         sortBuyDateCounter = sortBuyDateCounter ? false : true;
+        sortNameCounter = sortExpDateCounter = sortFreshnessCounter = true;
         render();
     }
 
@@ -226,6 +228,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         sortExpDateCounter = sortExpDateCounter ? false : true;
+        sortNameCounter = sortBuyDateCounter = sortFreshnessCounter = true;
         render();
     }
 
@@ -245,6 +248,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         sortFreshnessCounter = sortFreshnessCounter ? false : true;
+        sortNameCounter = sortBuyDateCounter = sortExpDateCounter = true;
         render();
     }
 
