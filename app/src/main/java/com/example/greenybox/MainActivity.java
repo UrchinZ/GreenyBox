@@ -37,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
     static MainActivity mActivity;
     private static final String TAG = "MainActivity";
     public int modify = -1;
-    private static boolean sortNameCounter, sortBuyDateCounter, sortExpDateCounter, sortFreshnessCounter = true;
+    //private static boolean sortNameCounter, sortBuyDateCounter, sortExpDateCounter, sortFreshnessCounter = true;
 
     /**
      * Activities that start when page is initiated
@@ -181,15 +181,15 @@ public class MainActivity extends AppCompatActivity {
         Collections.sort(mData, new Comparator<Item>() {
             @Override
             public int compare(Item o1, Item o2) {
-                if (sortNameCounter) {
+                //if (sortNameCounter) {
                     return o1.getName().compareTo(o2.getName());
-                } else {
-                    return o2.getName().compareTo(o1.getName());
-                }
+                //} else {
+                //    return o2.getName().compareTo(o1.getName());
+                //}
             }
         });
-        sortNameCounter = sortNameCounter ? false : true;
-        sortBuyDateCounter = sortExpDateCounter = sortFreshnessCounter = true;
+        //sortNameCounter = sortNameCounter ? false : true;
+        //sortBuyDateCounter = sortExpDateCounter = sortFreshnessCounter = true;
         render();
     }
     //=====================Assignee: CJ ==================
@@ -200,15 +200,15 @@ public class MainActivity extends AppCompatActivity {
         Collections.sort(mData, new Comparator<Item>() {
             @Override
             public int compare(Item o1, Item o2) {
-                if (sortBuyDateCounter) {
+                //if (sortBuyDateCounter) {
                     return o1.getBuyDate().isAfter(o2.getBuyDate()) ? 1 : -1;
-                } else {
-                    return o2.getBuyDate().isAfter(o1.getBuyDate()) ? 1 : -1;
-                }
+                //} else {
+                //    return o2.getBuyDate().isAfter(o1.getBuyDate()) ? 1 : -1;
+                //}
             }
         });
-        sortBuyDateCounter = sortBuyDateCounter ? false : true;
-        sortNameCounter = sortExpDateCounter = sortFreshnessCounter = true;
+        //sortBuyDateCounter = sortBuyDateCounter ? false : true;
+        //sortNameCounter = sortExpDateCounter = sortFreshnessCounter = true;
         render();
     }
 
@@ -220,15 +220,15 @@ public class MainActivity extends AppCompatActivity {
         Collections.sort(mData, new Comparator<Item>() {
             @Override
             public int compare(Item o1, Item o2) {
-                if (sortExpDateCounter) {
+                //if (sortExpDateCounter) {
                     return o1.getExpDate().isAfter(o2.getExpDate()) ? 1 : -1;
-                } else {
-                    return o2.getExpDate().isAfter(o1.getExpDate()) ? 1 : -1;
-                }
+                //} else {
+                //    return o2.getExpDate().isAfter(o1.getExpDate()) ? 1 : -1;
+                //}
             }
         });
-        sortExpDateCounter = sortExpDateCounter ? false : true;
-        sortNameCounter = sortBuyDateCounter = sortFreshnessCounter = true;
+        //sortExpDateCounter = sortExpDateCounter ? false : true;
+        //sortNameCounter = sortBuyDateCounter = sortFreshnessCounter = true;
         render();
     }
 
@@ -240,15 +240,15 @@ public class MainActivity extends AppCompatActivity {
         Collections.sort(mData, new Comparator<Item>() {
             @Override
             public int compare(Item o1, Item o2) {
-                if (sortFreshnessCounter) {
+                //if (sortFreshnessCounter) {
                     return (o1.Freshness() >= o2.Freshness()) ? 1 : -1;
-                } else {
-                    return (o2.Freshness() >= o1.Freshness()) ? 1 : -1;
-                }
+                //} else {
+                //    return (o2.Freshness() >= o1.Freshness()) ? 1 : -1;
+                //}
             }
         });
-        sortFreshnessCounter = sortFreshnessCounter ? false : true;
-        sortNameCounter = sortBuyDateCounter = sortExpDateCounter = true;
+        //sortFreshnessCounter = sortFreshnessCounter ? false : true;
+        //sortNameCounter = sortBuyDateCounter = sortExpDateCounter = true;
         render();
     }
 
